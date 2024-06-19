@@ -5,7 +5,7 @@ const ResumeContext = createContext({
   setResumeObj: (temp: any) => {},
 });
 
-export const useResumeContext = useContext(ResumeContext);
+export const useResumeContext = () => useContext(ResumeContext);
 
 const ResumeContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [resumeObj, setResumeObj] = useState(null);
@@ -19,3 +19,5 @@ const ResumeContextProvider = ({ children }: { children: React.ReactNode }) => {
     <ResumeContext.Provider value={value}>{children}</ResumeContext.Provider>
   );
 };
+
+export default ResumeContextProvider;
