@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Button } from "./Generics/Button";
 // import { Link } from "react-router-dom";
@@ -26,7 +27,7 @@ function Header() {
           <UserButton />
         </div>
       ) : (
-        <Link href={"/auth/sign-in"}>
+        <Link href={"/auth/login"}>
           <Button>Get Started</Button>
         </Link>
       )}

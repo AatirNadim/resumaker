@@ -40,6 +40,7 @@ menu {
   margin: 0;
   padding: 0;
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -106,13 +107,13 @@ menu {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-[var(--border)];
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[var(--background)] text-[var(--foreground)];
   }
 }
-/* 
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -141,7 +142,7 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-} */
+}
 
 #root {
 }
