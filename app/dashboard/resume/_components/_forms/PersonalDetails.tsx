@@ -8,7 +8,11 @@ import { toast } from "sonner";
 import { useRouter } from "next/router";
 import { useResumeContext } from "@/app/context/ResumeContext";
 
-function PersonalDetail({ enabledNext }) {
+interface Props {
+  enabledNext: (value: boolean) => void;
+}
+
+function PersonalDetail({ enabledNext }: Props) {
   const router = useRouter();
   const params = router.query;
   const { resumeObj, setResumeObj } = useResumeContext();

@@ -59,6 +59,9 @@ importers:
       react-dom:
         specifier: ^18
         version: 18.3.1(react@18.3.1)
+      react-simple-wysiwyg:
+        specifier: ^3.0.2
+        version: 3.0.2(react@18.3.1)
       sonner:
         specifier: ^1.5.0
         version: 1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2037,6 +2040,11 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  react-simple-wysiwyg@3.0.2:
+    resolution: {integrity: sha512-qBPP/b8CfLJgGooqQE2guFxiNxm2uBfMNtZUilCWPcjAWw9XMO6218JZw9kwK81iNO2J0PCWzHf73e6T6EGAvw==}
+    peerDependencies:
+      react: '>=16.8'
 
   react-style-singleton@2.2.1:
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
@@ -4609,6 +4617,10 @@ snapshots:
       use-sidecar: 1.1.2(@types/react@18.3.3)(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.3
+
+  react-simple-wysiwyg@3.0.2(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   react-style-singleton@2.2.1(@types/react@18.3.3)(react@18.3.1):
     dependencies:

@@ -8,14 +8,20 @@ import { Brain, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 import { AIChatSession } from "@lib/genAiConfig";
 import { useResumeContext } from "@/app/context/ResumeContext";
+import { useRouter } from "next/router";
 
 const prompt =
   "Job Title: {jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format";
-function Summery({ enabledNext }) {
+
+interface Props {
+  enabledNext: (value: boolean) => void;
+}
+
+function Summery({ enabledNext }: Props) {
   const { resumeObj, setResumeObj } = useResumeContext();
   const [summery, setSummery] = useState();
   const [loading, setLoading] = useState(false);
-  const params = useParams();
+  const params = useRouter().query;
   const [aiGeneratedSummeryList, setAiGenerateSummeryList] = useState();
   useEffect(() => {
     summery &&
