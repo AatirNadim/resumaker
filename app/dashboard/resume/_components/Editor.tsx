@@ -23,19 +23,31 @@ import { toast } from "sonner";
 import { useResumeContext } from "@/app/context/ResumeContext";
 const PROMPT =
   "position titile: {positionTitle} , Depends on position title give me 5-7 bullet points for my experience in resume (Please do not add experince level and No JSON array) , give me result in HTML tags";
-function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
+
+interface Props {
+  onRichTextEditorChange: (e: any) => void;
+  index: number;
+  defaultValue: string;
+}
+
+function RichTextEditor({
+  onRichTextEditorChange,
+  index,
+  defaultValue,
+}: Props) {
   const [value, setValue] = useState(defaultValue);
   const { resumeObj, setResumeObj } = useResumeContext();
   const [loading, setLoading] = useState(false);
+
   const GenerateSummeryFromAI = async () => {
-    if (!resumeObj?.Experience[index]?.title) {
+    if (!resumeObj.experience[index].title) {
       toast("Please Add Position Title");
       return;
     }
     setLoading(true);
     const prompt = PROMPT.replace(
       "{positionTitle}",
-      resumeObj.Experience[index].title
+      resumeObj.experience[index].title
     );
 
     const result = await AIChatSession.sendMessage(prompt);

@@ -38,7 +38,7 @@ function AddResume() {
 
     GlobalApi.CreateNewResume(data).then(
       (resp) => {
-        console.log(resp.data.data.documentId);
+        console.log("resumeId: ", resp.data.data.documentId);
         if (resp) {
           setLoading(false);
           router.push(

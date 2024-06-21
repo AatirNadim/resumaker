@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react";
-import FormSection from "../../components/FormSection";
-import ResumePreview
-import GlobalApi from "./../../../../../service/GlobalApi";
+import FormSection from "../_components/FormSection";
+import ResumePreview from "../_components/ResumePreview";
+import GlobalApi from "@lib/apiCalls";
 import ResumeContextProvider from "@/app/context/ResumeContext";
 import { useRouter } from "next/router";
+import { toast } from "sonner";
 
 function EditResume() {
   // const { resumeId } = useParams();
-  const router = useRouter();
-  const { resumeId } = router.query;
-  const [resumeObj, setResumeObj] = useState();
+  const { resumeId } = useRouter().query;
+  // const [resumeObj, setResumeObj] = useState();
   useEffect(() => {
     GetresumeObj();
   }, []);
 
   const GetresumeObj = () => {
-    GlobalApi.GetResumeById(resumeId).then((resp) => {
-      console.log(resp.data.data);
-      setResumeObj(resp.data.data);
-    });
+    try {
+      GlobalApi.GetResumeById(resumeId).then((resp) => {
+        console.log("resume details: ", resp.data.data);
+        // setResumeObj(resp.data.data);
+      });
+    } catch (err) {
+      console.error(err);
+      toast(`Error while fetching resume data: ${err}`);
+    }
   };
 
   return (

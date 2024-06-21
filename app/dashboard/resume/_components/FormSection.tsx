@@ -48,7 +48,6 @@ function FormSection() {
           </Button>
         </div>
       </div>
-      {/* Personal Detail  */}
       {activeFormIndex == 1 ? (
         <PersonalDetail enabledNext={(v) => setEnableNext(v)} />
       ) : activeFormIndex == 2 ? (
@@ -62,12 +61,6 @@ function FormSection() {
       ) : activeFormIndex == 6 ? (
         <Navigate to={"/my-resume/" + resumeId + "/view"} />
       ) : null}
-
-      {/* Experience  */}
-
-      {/* Educational Detail  */}
-
-      {/* Skills  */}
     </div>
   );
 }

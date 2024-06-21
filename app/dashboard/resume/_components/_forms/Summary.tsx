@@ -11,7 +11,7 @@ import { useResumeContext } from "@/app/context/ResumeContext";
 import { useRouter } from "next/router";
 
 const prompt =
-  "Job Title: {jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format";
+  "Job Title: {jobTitle}, Depends on job title give me list of summery for 3 experience level, Mid Level and Freasher level in 3-4 lines in array format, With summery and experience_level Field in JSON Format";
 
 interface Props {
   enabledNext: (value: boolean) => void;
@@ -19,21 +19,24 @@ interface Props {
 
 function Summery({ enabledNext }: Props) {
   const { resumeObj, setResumeObj } = useResumeContext();
-  const [summery, setSummery] = useState();
+  const [summery, setSummery] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const params = useRouter().query;
-  const [aiGeneratedSummeryList, setAiGenerateSummeryList] = useState();
+  const { resumeId } = useRouter().query as { resumeId: string };
+  const [aiGeneratedSummeryList, setAiGenerateSummeryList] = useState([]);
   useEffect(() => {
     summery &&
       setResumeObj({
         ...resumeObj,
-        summery: summery,
+        summary: summery,
       });
   }, [summery]);
 
   const GenerateSummeryFromAI = async () => {
     setLoading(true);
-    const PROMPT = prompt.replace("{jobTitle}", resumeObj?.jobTitle);
+    const PROMPT = prompt.replace(
+      "{jobTitle}",
+      resumeObj.personDetails.jobTitle
+    );
     console.log(PROMPT);
     const result = await AIChatSession.sendMessage(PROMPT);
     console.log(JSON.parse(result.response.text()));
@@ -42,7 +45,7 @@ function Summery({ enabledNext }: Props) {
     setLoading(false);
   };
 
-  const onSave = (e) => {
+  const onSave = (e: any) => {
     e.preventDefault();
 
     setLoading(true);
@@ -51,7 +54,7 @@ function Summery({ enabledNext }: Props) {
         summery: summery,
       },
     };
-    GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(
+    GlobalApi.UpdateResumeDetail(resumeId, data).then(
       (resp) => {
         console.log(resp);
         enabledNext(true);
@@ -86,8 +89,8 @@ function Summery({ enabledNext }: Props) {
             className="mt-5"
             required
             value={summery}
-            defaultValue={summery ? summery : resumeObj?.summery}
-            onChange={(e) => setSummery(e.target.value)}
+            defaultValue={summery ? summery : resumeObj.summary}
+            onChange={(e: any) => setSummery(e.target.value)}
           />
           <div className="mt-2 flex justify-end">
             <Button type="submit" disabled={loading}>
@@ -100,18 +103,23 @@ function Summery({ enabledNext }: Props) {
       {aiGeneratedSummeryList && (
         <div className="my-5">
           <h2 className="font-bold text-lg">Suggestions</h2>
-          {aiGeneratedSummeryList?.map((item, index) => (
-            <div
-              key={index}
-              onClick={() => setSummery(item?.summary)}
-              className="p-5 shadow-lg my-4 rounded-lg cursor-pointer"
-            >
-              <h2 className="font-bold my-1 text-primary">
-                Level: {item?.experience_level}
-              </h2>
-              <p>{item?.summary}</p>
-            </div>
-          ))}
+          {aiGeneratedSummeryList?.map(
+            (
+              item: { summary: string; experience_level: number },
+              index: number
+            ) => (
+              <div
+                key={index}
+                onClick={() => setSummery(item?.summary)}
+                className="p-5 shadow-lg my-4 rounded-lg cursor-pointer"
+              >
+                <h2 className="font-bold my-1 text-primary">
+                  Level: {item?.experience_level}
+                </h2>
+                <p>{item?.summary}</p>
+              </div>
+            )
+          )}
         </div>
       )}
     </div>

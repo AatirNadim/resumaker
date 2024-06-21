@@ -1,5 +1,4 @@
-
-function EducationalPreview({ resumeObj }) {
+function EducationalPreview({ resumeObj }: { resumeObj: any }) {
   return (
     <div className="my-6">
       <h2

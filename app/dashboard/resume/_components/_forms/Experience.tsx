@@ -1,7 +1,7 @@
 import { Button } from "@/app/_components/Generics/Button";
 import { Input } from "@/app/_components/Generics/Input";
 import React, { useContext, useEffect, useState } from "react";
-import RichTextEditor from "../RichTextEditor";
+import RichTextEditor from "../Editor";
 // import { resumeObjContext } from "@/context/resumeObjContext";
 // import { useParams } from "react-router-dom";
 import GlobalApi from "@lib/apiCalls";
@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
 import { useResumeContext } from "@/app/context/ResumeContext";
 import { useRouter } from "next/router";
+import { ExperienceNode } from "@/app/types";
 
 const formField = {
   title: "",
@@ -19,18 +20,19 @@ const formField = {
   endDate: "",
   workSummery: "",
 };
+
 function Experience() {
-  const [experinceList, setExperinceList] = useState([]);
+  const [experinceList, setExperinceList] = useState<ExperienceNode[]>([]);
   const { resumeObj, setResumeObj } = useResumeContext();
-  const router = useRouter();
-  const params = router.query;
+  const { resumeId } = useRouter().query as { resumeId: string };
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    resumeObj?.Experience.length > 0 && setExperinceList(resumeObj?.Experience);
+    resumeObj?.experience.length > 0 &&
+      setExperinceList(resumeObj?.experience as ExperienceNode[]);
   }, []);
 
-  const handleChange = (index, event) => {
+  const handleChange = (index: number, event: any) => {
     const newEntries = experinceList.slice();
     const { name, value } = event.target;
     newEntries[index][name] = value;
@@ -39,18 +41,7 @@ function Experience() {
   };
 
   const AddNewExperience = () => {
-    setExperinceList([
-      ...experinceList,
-      {
-        title: "",
-        companyName: "",
-        city: "",
-        state: "",
-        startDate: "",
-        endDate: "",
-        workSummery: "",
-      },
-    ]);
+    setExperinceList([...experinceList, new ExperienceNode()]);
   };
 
   const RemoveExperience = () => {
@@ -67,7 +58,7 @@ function Experience() {
   useEffect(() => {
     setResumeObj({
       ...resumeObj,
-      Experience: experinceList,
+      experience: experinceList,
     });
   }, [experinceList]);
 
@@ -81,7 +72,7 @@ function Experience() {
 
     console.log(experinceList);
 
-    GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(
+    GlobalApi.UpdateResumeDetail(resumeId, data).then(
       (res) => {
         console.log(res);
         setLoading(false);

@@ -1,5 +1,7 @@
+import { useResumeContext } from "@/app/context/ResumeContext";
 
-function PersonalDetailPreview({ resumeObj }) {
+function PersonalDetailPreview() {
+  const { resumeObj } = useResumeContext();
   return (
     <div>
       <h2
@@ -10,9 +12,7 @@ function PersonalDetailPreview({ resumeObj }) {
       >
         {resumeObj?.firstName} {resumeObj?.lastName}
       </h2>
-      <h2 className="text-center text-sm font-medium">
-        {resumeObj?.jobTitle}
-      </h2>
+      <h2 className="text-center text-sm font-medium">{resumeObj?.jobTitle}</h2>
       <h2
         className="text-center font-normal text-xs"
         style={{

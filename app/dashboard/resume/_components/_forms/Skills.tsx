@@ -11,15 +11,12 @@ import GlobalApi from "@lib/apiCalls";
 import { toast } from "sonner";
 import { useRouter } from "next/router";
 import { useResumeContext } from "@/app/context/ResumeContext";
+import { SkillNode } from "@/app/types";
+
 function Skills() {
-  const [skillsList, setSkillsList] = useState([
-    {
-      name: "",
-      rating: 0,
-    },
-  ]);
+  const [skillsList, setSkillsList] = useState<SkillNode[]>([]);
   const router = useRouter();
-  const { resumeId } = router.query;
+  const { resumeId } = router.query as { resumeId: string };
 
   const [loading, setLoading] = useState(false);
   const { resumeObj, setResumeObj } = useResumeContext();
@@ -36,13 +33,7 @@ function Skills() {
   };
 
   const AddNewSkills = () => {
-    setSkillsList([
-      ...skillsList,
-      {
-        name: "",
-        rating: 0,
-      },
-    ]);
+    setSkillsList([...skillsList, new SkillNode()]);
   };
   const RemoveSkills = () => {
     setSkillsList((skillsList) => skillsList.slice(0, -1));
@@ -87,14 +78,16 @@ function Skills() {
               <label className="text-xs">Name</label>
               <Input
                 className="w-full"
-                defaultValue={item.name}
-                onChange={(e) => handleChange(index, "name", e.target.value)}
+                defaultValue={item.skill}
+                onChange={(e: any) =>
+                  handleChange(index, "name", e.target.value)
+                }
               />
             </div>
             <Rating
               style={{ maxWidth: 120 }}
               value={item.rating}
-              onChange={(v) => handleChange(index, "rating", v)}
+              onChange={(v: any) => handleChange(index, "rating", v)}
             />
           </div>
         ))}

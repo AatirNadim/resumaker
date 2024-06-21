@@ -9,18 +9,19 @@ const axiosClient = axios.create({
   },
 });
 
-const CreateNewResume = (data) => axiosClient.post("/user-resumes", data);
+const CreateNewResume = (data: any) => axiosClient.post("/user-resumes", data);
 
-const GetUserResumes = (userEmail) =>
+const GetUserResumes = (userEmail: string) =>
   axiosClient.get("/user-resumes?filters[userEmail][$eq]=" + userEmail);
 
-const UpdateResumeDetail = (id, data) =>
+const UpdateResumeDetail = (id: string, data: any) =>
   axiosClient.put("/user-resumes/" + id, data);
 
-const GetResumeById = (id) =>
+const GetResumeById = (id: string) =>
   axiosClient.get("/user-resumes/" + id + "?populate=*");
 
-const DeleteResumeById = (id) => axiosClient.delete("/user-resumes/" + id);
+const DeleteResumeById = (id: string) =>
+  axiosClient.delete("/user-resumes/" + id);
 
 export default {
   CreateNewResume,

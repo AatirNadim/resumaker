@@ -4,26 +4,16 @@ import { Textarea } from "@/app/_components/Generics/TextArea";
 import { useResumeContext } from "@/app/context/ResumeContext";
 import { LoaderCircle } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
+import GlobalApi from "@lib/apiCalls";
 import { useRouter } from "next/router";
-// import { useParams } from "react-router-dom";
-// import GlobalApi from "./../../../../../service/GlobalApi";
 import { toast } from "sonner";
+import { EducationNode, ResumeNode } from "@/app/types";
 
 function Education() {
   const [loading, setLoading] = useState(false);
   const { resumeObj, setResumeObj } = useResumeContext();
-  const router = useRouter();
-  const params = router.query;
-  const [educationalList, setEducationalList] = useState([
-    {
-      universityName: "",
-      degree: "",
-      major: "",
-      startDate: "",
-      endDate: "",
-      description: "",
-    },
-  ]);
+  const { resumeId } = useRouter().query as { resumeId: string };
+  const [educationalList, setEducationalList] = useState<EducationNode[]>([]);
 
   useEffect(() => {
     resumeObj && setEducationalList(resumeObj?.education);
@@ -37,17 +27,7 @@ function Education() {
   };
 
   const AddNewEducation = () => {
-    setEducationalList([
-      ...educationalList,
-      {
-        universityName: "",
-        degree: "",
-        major: "",
-        startDate: "",
-        endDate: "",
-        description: "",
-      },
-    ]);
+    setEducationalList([...educationalList, new EducationNode()]);
   };
   const RemoveEducation = () => {
     setEducationalList((educationalList) => educationalList.slice(0, -1));
@@ -60,7 +40,7 @@ function Education() {
       },
     };
 
-    GlobalApi.UpdateResumeDetail(params.resumeId, data).then(
+    GlobalApi.UpdateResumeDetail(resumeId, data).then(
       (resp) => {
         console.log(resp);
         setLoading(false);
@@ -79,6 +59,7 @@ function Education() {
       education: educationalList,
     });
   }, [educationalList]);
+
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <h2 className="font-bold text-lg">Education</h2>

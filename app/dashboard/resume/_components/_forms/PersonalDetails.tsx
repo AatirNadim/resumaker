@@ -7,23 +7,23 @@ import GlobalApi from "@lib/apiCalls";
 import { toast } from "sonner";
 import { useRouter } from "next/router";
 import { useResumeContext } from "@/app/context/ResumeContext";
+import { PersonNode } from "@/app/types";
 
 interface Props {
   enabledNext: (value: boolean) => void;
 }
 
 function PersonalDetail({ enabledNext }: Props) {
-  const router = useRouter();
-  const params = router.query;
+  const { resumeId } = useRouter().query as { resumeId: string };
   const { resumeObj, setResumeObj } = useResumeContext();
 
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState<PersonNode>(new PersonNode());
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     console.log("---", resumeObj);
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     enabledNext(false);
     const { name, value } = e.target;
 
@@ -43,7 +43,7 @@ function PersonalDetail({ enabledNext }: Props) {
     const data = {
       data: formData,
     };
-    GlobalApi.UpdateResumeDetail(params?.resumeId, data).then(
+    GlobalApi.UpdateResumeDetail(resumeId, data).then(
       (resp) => {
         console.log(resp);
         enabledNext(true);
@@ -66,7 +66,7 @@ function PersonalDetail({ enabledNext }: Props) {
             <label className="text-sm">First Name</label>
             <Input
               name="firstName"
-              defaultValue={resumeObj?.firstName}
+              defaultValue={resumeObj.personDetails.firstName}
               required
               onChange={handleInputChange}
             />
@@ -77,7 +77,7 @@ function PersonalDetail({ enabledNext }: Props) {
               name="lastName"
               required
               onChange={handleInputChange}
-              defaultValue={resumeObj?.lastName}
+              defaultValue={resumeObj.personDetails.lastName}
             />
           </div>
           <div className="col-span-2">
@@ -85,7 +85,7 @@ function PersonalDetail({ enabledNext }: Props) {
             <Input
               name="jobTitle"
               required
-              defaultValue={resumeObj?.jobTitle}
+              defaultValue={resumeObj.personDetails.jobTitle}
               onChange={handleInputChange}
             />
           </div>
@@ -94,7 +94,7 @@ function PersonalDetail({ enabledNext }: Props) {
             <Input
               name="address"
               required
-              defaultValue={resumeObj?.address}
+              defaultValue={resumeObj.personDetails.address}
               onChange={handleInputChange}
             />
           </div>
@@ -103,7 +103,7 @@ function PersonalDetail({ enabledNext }: Props) {
             <Input
               name="phone"
               required
-              defaultValue={resumeObj?.phone}
+              defaultValue={resumeObj.personDetails.phone}
               onChange={handleInputChange}
             />
           </div>
@@ -112,7 +112,7 @@ function PersonalDetail({ enabledNext }: Props) {
             <Input
               name="email"
               required
-              defaultValue={resumeObj?.email}
+              defaultValue={resumeObj.personDetails.email}
               onChange={handleInputChange}
             />
           </div>
