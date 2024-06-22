@@ -1,23 +1,25 @@
 import axios from "axios";
+import { ResumeNode } from "../types";
 
 // const API_KEY=
 const axiosClient = axios.create({
-  baseURL: process.env.STRAPI_API_BASE_URL + "/api/",
+  baseURL: "/api/resume",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
+    // Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
   },
 });
 
-const CreateNewResume = (data: any) => axiosClient.post("/user-resumes", data);
+const CreateNewResume = (data: ResumeNode) => axiosClient.post("/create", data);
 
 const GetUserResumes = (userEmail: string) =>
-  axiosClient.get("/user-resumes?filters[userEmail][$eq]=" + userEmail);
+  // axiosClient.get("/user-resumes?filters[userEmail][$eq]=" + userEmail);
+  axiosClient.get("/");
 
-const UpdateResumeDetail = (id: string, data: any) =>
+const UpdateResumeDetail = (id: string, data: ResumeNode) =>
   axiosClient.put("/user-resumes/" + id, data);
 
-const GetResumeById = (id: string) =>
+const GetResumeById = (id: string): Promise<ResumeNode> =>
   axiosClient.get("/user-resumes/" + id + "?populate=*");
 
 const DeleteResumeById = (id: string) =>

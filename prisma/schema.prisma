@@ -9,22 +9,81 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
-model Resume {
-  resumeId      String          @id @default(cuid())
-  name          String
-  userEmail     String
-  resumeName    String
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  ResumeContent ResumeContent[]
+type ExperienceNode {
+  title       String
+  companyName String
+  city        String
+  state       String
+  startDate   String
+  endDate     String
+  workSummery String
 }
 
-model ResumeContent {
-  resumeId String @id
+type EducationNode {
+  schoolName   String
+  degree       String
+  fieldOfStudy String
+  startDate    String
+  endDate      String
+  grade        String
+}
 
-  Resume Resume @relation(fields: [resumeId], references: [resumeId])
+type PersonalDetailNode {
+  firstName String
+  lastName  String
+  jobTitle  String
+  address   String
+  phone     String
+  email     String
+}
+
+type SkillNode {
+  skill  String
+  rating Int
+}
+
+model ResumeWrapper {
+  resumeId        String            @id @default(auto()) @map("_id") @db.ObjectId
+  resumeName      String
+  userEmail       String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  experiences     Experience[]
+  Education       Education[]
+  PersonalDetails PersonalDetails[]
+  Skills          Skills[]
+  summary         String
+  themeColor      String
+}
+
+model Experience {
+  experienceId    String           @id @default(auto()) @map("_id") @db.ObjectId
+  resumeId        String           @db.ObjectId
+  resumeNode      ResumeWrapper    @relation(fields: [resumeId], references: [resumeId])
+  experienceNodes ExperienceNode[]
+}
+
+model Education {
+  educationId    String          @id @default(auto()) @map("_id") @db.ObjectId
+  resumeId       String          @db.ObjectId
+  resumeNode     ResumeWrapper   @relation(fields: [resumeId], references: [resumeId])
+  educationNodes EducationNode[]
+}
+
+model PersonalDetails {
+  personalDetailId String             @id @default(auto()) @map("_id") @db.ObjectId
+  resumeId         String             @db.ObjectId
+  resumeNode       ResumeWrapper      @relation(fields: [resumeId], references: [resumeId])
+  personalDetail   PersonalDetailNode
+}
+
+model Skills {
+  skillId    String        @id @default(auto()) @map("_id") @db.ObjectId
+  resumeId   String        @db.ObjectId
+  resumeNode ResumeWrapper @relation(fields: [resumeId], references: [resumeId])
+  skillNodes SkillNode[]
 }

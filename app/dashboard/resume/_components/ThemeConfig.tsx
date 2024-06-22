@@ -39,10 +39,9 @@ function ThemeConfig() {
 
   // const { resumeObj, setResumeObj } = useContext(ResumeInfoContext);
   const { resumeObj, setResumeObj } = useResumeContext();
-  const [selectedColor, setSelectedColor] = useState();
-  const router = useRouter();
-  const { resumeId } = router.query;
-  const onColorSelect = (color) => {
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const { resumeId } = useRouter().query as { resumeId: string };
+  const onColorSelect = (color: string) => {
     setSelectedColor(color);
     setResumeObj({
       ...resumeObj,
@@ -80,6 +79,7 @@ function ThemeConfig() {
               style={{
                 background: item,
               }}
+              key={index}
             ></div>
           ))}
         </div>
