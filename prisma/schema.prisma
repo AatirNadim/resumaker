@@ -24,12 +24,12 @@ type ExperienceNode {
 }
 
 type EducationNode {
-  schoolName   String
-  degree       String
-  fieldOfStudy String
-  startDate    String
-  endDate      String
-  grade        String
+  universityName String
+  degree         String
+  major          String
+  startDate      String
+  endDate        String
+  description    String
 }
 
 type PersonalDetailNode {
@@ -75,10 +75,15 @@ model Education {
 }
 
 model PersonalDetails {
-  personalDetailId String             @id @default(auto()) @map("_id") @db.ObjectId
-  resumeId         String             @db.ObjectId
-  resumeNode       ResumeWrapper      @relation(fields: [resumeId], references: [resumeId])
-  personalDetail   PersonalDetailNode
+  personalDetailId String        @id @default(auto()) @map("_id") @db.ObjectId
+  resumeId         String        @db.ObjectId
+  resumeNode       ResumeWrapper @relation(fields: [resumeId], references: [resumeId])
+  firstName        String
+  lastName         String
+  jobTitle         String
+  address          String
+  phone            String
+  email            String
 }
 
 model Skills {

@@ -1,30 +1,24 @@
+type EducationNode = {
+  schoolName: string;
+  degree: string;
+  fieldOfStudy: string;
+  startDate: string;
+  endDate: string;
+  grade: string;
+};
+
 export class EducationDto {
   educationId: string;
   resumeId: string;
-  school: string;
-  degree: string;
-  fieldOfStudy: string;
-  startDate: Date;
-  endDate: Date;
-  description: string;
+  educationNodes: EducationNode[];
 
   constructor(
     educationId: string,
     resumeId: string,
-    school: string,
-    degree: string,
-    fieldOfStudy: string,
-    startDate: Date,
-    endDate: Date,
-    description: string
+    educationNodes: EducationNode[] = []
   ) {
     this.educationId = educationId;
     this.resumeId = resumeId;
-    this.school = school;
-    this.degree = degree;
-    this.fieldOfStudy = fieldOfStudy;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.description = description;
+    this.educationNodes = educationNodes;
   }
 }

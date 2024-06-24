@@ -1,30 +1,25 @@
+type ExperienceNode = {
+  title: string;
+  companyName: string;
+  city: string;
+  state: string;
+  startDate: string;
+  endDate: string;
+  workSummery: string;
+};
+
 export class ExperienceDto {
   experienceId: string;
   resumeId: string;
-  title: string;
-  company: string;
-  location: string;
-  startDate: Date;
-  endDate: Date;
-  description: string;
+  experienceNodes: ExperienceNode[];
 
   constructor(
     experienceId: string,
     resumeId: string,
-    title: string,
-    company: string,
-    location: string,
-    startDate: Date,
-    endDate: Date,
-    description: string
+    experienceNodes: ExperienceNode[] = []
   ) {
     this.experienceId = experienceId;
     this.resumeId = resumeId;
-    this.title = title;
-    this.company = company;
-    this.location = location;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.description = description;
+    this.experienceNodes = experienceNodes;
   }
 }

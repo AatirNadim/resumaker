@@ -15,7 +15,7 @@ import { Input } from "@/app/_components/Generics/Input";
 import { v4 as uuidv4 } from "uuid";
 import GlobalApi from "@/app/lib/apiCalls";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function AddResume() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -36,20 +36,20 @@ function AddResume() {
       },
     };
 
-    GlobalApi.CreateNewResume(data).then(
-      (resp) => {
-        console.log("resumeId: ", resp.data.data.documentId);
-        if (resp) {
-          setLoading(false);
-          router.push(
-            "/dashboard/resume/" + resp.data.data.documentId + "/edit"
-          );
-        }
-      },
-      (error) => {
-        setLoading(false);
-      }
-    );
+    // GlobalApi.CreateNewResume(data).then(
+    //   (resp) => {
+    //     console.log("resumeId: ", resp.data.data.documentId);
+    //     if (resp) {
+    //       setLoading(false);
+    //       router.push(
+    //         "/dashboard/resume/" + resp.data.data.documentId + "/edit"
+    //       );
+    //     }
+    //   },
+    //   (error) => {
+    //     setLoading(false);
+    //   }
+    // );
   };
   return (
     <div>

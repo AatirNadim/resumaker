@@ -65,6 +65,7 @@ export class SkillNode {
 }
 
 export class ResumeNode {
+  resumeName: string;
   experience: ExperienceNode[];
   education: EducationNode[];
   personDetails: PersonNode;
@@ -73,6 +74,7 @@ export class ResumeNode {
   themeColor: string;
 
   constructor() {
+    this.resumeName = "";
     this.experience = [];
     this.education = [];
     this.personDetails = new PersonNode();

@@ -8,6 +8,7 @@ import GlobalApi from "@lib/apiCalls";
 import AddResume from "./_fragments/AddResume";
 import ResumeCardItem from "./_fragments/ResumeCardItem";
 import { ResumeNode } from "../types";
+// import { GetUserResumes } from "../lib/apiCalls";
 
 const page = () => {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -20,10 +21,12 @@ const page = () => {
   }, [user]);
 
   const GetResumesList = (email: string) => {
-    GlobalApi.GetUserResumes(email).then((resp) => {
-      console.log(resp.data.data);
+    GlobalApi.GetUserResumes(email).then((data) => {
+      console.log("data from the server: ", data);
+      // console.log(resp.data.data);
       // setResumeList(resp.data.data);
     });
+    // console.log("resumes: ", resumes);
   };
 
   return (
@@ -46,7 +49,10 @@ const page = () => {
               />
             ))
           : [1, 2, 3, 4].map((item, index) => (
-              <div className="h-[280px] rounded-lg bg-slate-200 animate-pulse"></div>
+              <div
+                className="h-[280px] rounded-lg bg-slate-200 animate-pulse"
+                key={index}
+              ></div>
             ))}
       </div>
     </div>
