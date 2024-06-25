@@ -87,3 +87,10 @@ export class ResumeNode {
     this.updatedAt = new Date();
   }
 }
+
+export const enum ResumeComponentType {
+  PersonDetails = "PersonDetails",
+  Experience = "Experience",
+  Education = "Education",
+  Skills = "Skills",
+}

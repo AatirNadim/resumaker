@@ -4,6 +4,7 @@ import {
   getEducationHandler,
   getExperienceHandler,
   getResumeFromDb,
+  getResumeFromDbById,
   getSkillHandler,
   personalInfoHandler,
 } from "./get.db";
@@ -15,6 +16,14 @@ export const getResumeHandler = async (
 ): Promise<ResumeNode[]> => {
   try {
     const userEmail = req.nextUrl.searchParams.get("userEmail");
+    const resumeId = req.nextUrl.searchParams.get("resumeId");
+    if (resumeId) {
+      const resumeWrapper = await getResumeFromDbById(resumeId);
+      if (!resumeWrapper) {
+        throw new Error("Resume with the given id not found");
+      }
+      return await formatResumes([resumeWrapper]);
+    }
     console.log("\n\n===== userEmail: ", userEmail, "=====\n\n");
     if (!userEmail) {
       throw new Error("User email not provided");

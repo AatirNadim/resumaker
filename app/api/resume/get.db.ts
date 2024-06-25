@@ -25,6 +25,23 @@ export const getResumeFromDb = async (userEmail: string) => {
   }
 };
 
+export const getResumeFromDbById = async (resumeId: string) => {
+  try {
+    const resumeWrapper = await prisma.resumeWrapper.findFirst({
+      where: { resumeId },
+    });
+    // return await formatResumes([resumeWrapper]);
+    console.log(
+      "\n\n===== resumeWrapper fetched from the db: ",
+      resumeWrapper,
+      "=====\n\n"
+    );
+    return resumeWrapper;
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const getExperienceHandler = async (
   resumeId: string
 ): Promise<ExperienceNode[] | undefined> => {
