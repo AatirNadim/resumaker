@@ -66,6 +66,8 @@ export class SkillNode {
 
 export class ResumeNode {
   resumeName: string;
+  createdAt: Date;
+  updatedAt: Date;
   experience: ExperienceNode[];
   education: EducationNode[];
   personDetails: PersonNode;
@@ -81,5 +83,7 @@ export class ResumeNode {
     this.skills = [];
     this.summary = "";
     this.themeColor = "";
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
   }
 }

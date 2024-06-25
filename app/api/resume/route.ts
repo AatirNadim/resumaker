@@ -8,10 +8,8 @@ import { getResumeHandler } from "./get.middleware";
 
 export async function GET(req: NextRequest) {
   try {
-    console.log("\n\ninside the get resume handler, req: ", req, "\n\n");
-
+    // console.log("\n\ninside the get resume handler, req: ", req, "\n\n");
     const resumes = await getResumeHandler(req);
-
     console.log(
       "\n\n===== resumes fetched from the db: ",
       JSON.stringify(resumes),

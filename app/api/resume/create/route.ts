@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createResumeHandler } from "./create.middleware";
 
-export default async function handler(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    if (req.method !== "POST") {
-      return NextResponse.json(
-        { error: "Method not allowed" },
-        { status: 405 }
-      );
-    }
-    
-    return createResumeHandler(req);
+    const resumeId = await createResumeHandler(req);
+    return NextResponse.json(
+      { resumeId, message: "Resume created" },
+      { status: 200 }
+    );
   } catch (err) {
     console.error("Error in resume handler: ", err);
     return NextResponse.json(

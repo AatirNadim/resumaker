@@ -5,7 +5,7 @@ import { LoaderCircle } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import GlobalApi from "@lib/apiCalls";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { useResumeContext } from "@/app/context/ResumeContext";
 import { PersonNode } from "@/app/types";
 
@@ -14,8 +14,8 @@ interface Props {
 }
 
 function PersonalDetail({ enabledNext }: Props) {
-  const { resumeId } = useRouter().query as { resumeId: string };
-  const { resumeObj, setResumeObj } = useResumeContext();
+  // const { resumeId } = useRouter().query as { resumeId: string };
+  const { resumeId, resumeObj, setResumeObj } = useResumeContext();
 
   const [formData, setFormData] = useState<PersonNode>(new PersonNode());
   const [loading, setLoading] = useState(false);

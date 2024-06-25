@@ -19,37 +19,42 @@ import { useRouter } from "next/navigation";
 
 function AddResume() {
   const [openDialog, setOpenDialog] = useState(false);
-  const [resumeTitle, setResumeTitle] = useState();
+  const [resumeTitle, setResumeTitle] = useState<string>("");
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   // const navigation = useNavigate();
   const onCreate = async () => {
     setLoading(true);
-    const uuid = uuidv4();
-    const data = {
-      data: {
-        title: resumeTitle,
-        resumeId: uuid,
-        userEmail: user?.primaryEmailAddress?.emailAddress,
-        userName: user?.fullName,
-      },
-    };
-
-    // GlobalApi.CreateNewResume(data).then(
-    //   (resp) => {
-    //     console.log("resumeId: ", resp.data.data.documentId);
-    //     if (resp) {
-    //       setLoading(false);
-    //       router.push(
-    //         "/dashboard/resume/" + resp.data.data.documentId + "/edit"
-    //       );
-    //     }
+    // const uuid = uuidv4();
+    // const data = {
+    //   data: {
+    //     title: resumeTitle,
+    //     resumeId: uuid,
+    //     userEmail: user?.primaryEmailAddress?.emailAddress,
+    //     userName: user?.fullName,
     //   },
-    //   (error) => {
-    //     setLoading(false);
-    //   }
-    // );
+    // };
+
+    if (!user?.primaryEmailAddress?.emailAddress) {
+      alert("User email not found");
+      console.error("User email not found");
+      return;
+    }
+
+    GlobalApi.CreateNewResume(
+      resumeTitle,
+      user.primaryEmailAddress.emailAddress
+    )
+      .then((resumeId) => {
+        console.log("resumeId: ", resumeId);
+        if (resumeId?.length > 0) {
+          setLoading(false);
+          router.push("/dashboard/resume/" + resumeId);
+        }
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   };
   return (
     <div>
@@ -72,7 +77,7 @@ function AddResume() {
             <DialogDescription>
               <p>Add a title for your new resume</p>
               <Input
-                className="my-2"
+                className="my-2 text-black"
                 placeholder="Ex.Full Stack resume"
                 onChange={(e: any) => setResumeTitle(e.target.value)}
               />

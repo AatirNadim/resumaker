@@ -3,14 +3,15 @@ import prisma from "@/app/lib/prisma";
 import { EducationNode, PersonNode, ResumeNode } from "@/app/types";
 import { NextRequest, NextResponse } from "next/server";
 
-const createResumeEntry = async (resumeNode: ResumeNode): Promise<string> => {
+const createResumeEntry = async (
+  resumeName: string,
+  userEmail: string
+): Promise<string> => {
   try {
     const ret = await prisma.resumeWrapper.create({
       data: {
-        resumeName: resumeNode.resumeName,
-        userEmail: resumeNode.personDetails.email,
-        summary: resumeNode.summary,
-        themeColor: resumeNode.themeColor,
+        resumeName,
+        userEmail,
       },
     });
     return ret.resumeId;
@@ -87,22 +88,24 @@ const createPersonalDetailsEntry = async (
 
 export const createResumeHandler = async (req: NextRequest) => {
   try {
-    const resumeNode = (await req.json()) as ResumeNode;
-
-    const resumeId = await createResumeEntry(resumeNode);
-
-    await createEducationEntry(resumeId, resumeNode.education);
-
-    await createExperienceEntry(resumeId, resumeNode.experience);
-
-    await createSkillEntry(resumeId, resumeNode.skills);
-
-    await createPersonalDetailsEntry(resumeId, resumeNode.personDetails);
-
-    return NextResponse.json(
-      { message: "Create resume details" },
-      { status: 201 }
+    const { resumeName, userEmail } = await req.json();
+    console.log(
+      "\n\n==================resumeName: ",
+      resumeName,
+      "userEmail: ",
+      userEmail,
+      "==================\n\n"
     );
+
+    const resumeId = await createResumeEntry(resumeName, userEmail);
+
+    console.log(
+      "\n\n==================resumeId: ",
+      resumeId,
+      "==================\n\n"
+    );
+
+    return resumeId;
   } catch (err) {
     console.error(err);
     throw err;

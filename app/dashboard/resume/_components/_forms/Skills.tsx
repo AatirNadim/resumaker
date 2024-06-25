@@ -9,17 +9,17 @@ import { LoaderCircle } from "lucide-react";
 import GlobalApi from "@lib/apiCalls";
 // import { useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { useResumeContext } from "@/app/context/ResumeContext";
 import { SkillNode } from "@/app/types";
 
 function Skills() {
   const [skillsList, setSkillsList] = useState<SkillNode[]>([]);
-  const router = useRouter();
-  const { resumeId } = router.query as { resumeId: string };
+  // const router = useRouter();
+  // const { resumeId } = router.query as { resumeId: string };
 
   const [loading, setLoading] = useState(false);
-  const { resumeObj, setResumeObj } = useResumeContext();
+  const { resumeId, resumeObj, setResumeObj } = useResumeContext();
 
   useEffect(() => {
     resumeObj && setSkillsList(resumeObj?.skills);

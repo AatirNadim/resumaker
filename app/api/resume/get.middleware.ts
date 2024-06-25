@@ -1,41 +1,61 @@
 import { NextRequest } from "next/server";
-import prisma from "@/prisma/index";
-import { Prisma } from "@prisma/client";
+import type { ResumeWrapper } from "@prisma/client";
+import {
+  getEducationHandler,
+  getExperienceHandler,
+  getResumeFromDb,
+  getSkillHandler,
+  personalInfoHandler,
+} from "./get.db";
+import { ResumeNode } from "@/app/types";
 // import { ResumeWrapperDto } from "../dtos/resumeWrapper.dto";
 
-export const getResumeHandler = async (req: NextRequest) => {
+export const getResumeHandler = async (
+  req: NextRequest
+): Promise<ResumeNode[]> => {
   try {
     const userEmail = req.nextUrl.searchParams.get("userEmail");
     console.log("\n\n===== userEmail: ", userEmail, "=====\n\n");
     if (!userEmail) {
       throw new Error("User email not provided");
     }
-    const userResumeWrappers = await prisma.resumeWrapper.findMany({
-      where: { userEmail },
-      orderBy: { createdAt: "desc" },
-    });
-    // return await formatResumes(userResumeWrappers);
-    return userResumeWrappers;
+    const userResumeWrappers = await getResumeFromDb(userEmail);
+    return await formatResumes(userResumeWrappers);
   } catch (err) {
     console.error("Error in getResumeHandler: ", err);
     throw err;
   }
 };
 
-export const getExperienceHandler = async (
-  resumeWrapper: typeof prisma.resumeWrapper.fields
-) => {
+export const formatResumes = async (
+  resumeWrappers: ResumeWrapper[]
+): Promise<ResumeNode[]> => {
   try {
-    const experiences = await prisma.experience.findMany({
-      // where: { resumeId: resumeWrapper. },
+    const promiseArr = resumeWrappers.map(async (resumeWrapper) => {
+      const expNodes =
+        (await getExperienceHandler(resumeWrapper.resumeId)) || [];
+      const educationNodes =
+        (await getEducationHandler(resumeWrapper.resumeId)) || [];
+      const skillNodes = (await getSkillHandler(resumeWrapper.resumeId)) || [];
+      const personalDetails =
+        (await personalInfoHandler(resumeWrapper.resumeId)) || [];
+      return {
+        ...resumeWrapper,
+        experience: expNodes,
+        education: educationNodes,
+        skills: skillNodes,
+        personDetails: personalDetails,
+      } as ResumeNode;
     });
-  } catch (err) {
-    throw err;
-  }
-};
 
-export const formatResumes = async (resumeWrappers: any[]) => {
-  try {
+    const res = await Promise.all(promiseArr);
+    console.log(
+      "\n\n===== fetched all the resume details for email id: \n\n",
+      JSON.stringify(res),
+      "=====\n\n"
+    );
+
+    return res;
   } catch (err) {
     throw err;
   }

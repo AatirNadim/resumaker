@@ -11,7 +11,7 @@ import GlobalApi from "@lib/apiCalls";
 // import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useResumeContext } from "@/app/context/ResumeContext";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 function ThemeConfig() {
   const colors = [
@@ -38,9 +38,10 @@ function ThemeConfig() {
   ];
 
   // const { resumeObj, setResumeObj } = useContext(ResumeInfoContext);
-  const { resumeObj, setResumeObj } = useResumeContext();
+  const { resumeObj, resumeId, setResumeObj } = useResumeContext();
   const [selectedColor, setSelectedColor] = useState<string>("");
-  const { resumeId } = useRouter().query as { resumeId: string };
+  // const { resumeId } = useRouter().query as { resumeId: string };
+
   const onColorSelect = (color: string) => {
     setSelectedColor(color);
     setResumeObj({
@@ -52,10 +53,10 @@ function ThemeConfig() {
         themeColor: color,
       },
     };
-    GlobalApi.UpdateResumeDetail(resumeId, data).then((resp) => {
-      console.log(resp);
-      toast("Theme Color Updated");
-    });
+    // GlobalApi.UpdateResumeDetail(resumeId, data).then((resp) => {
+    //   console.log(resp);
+    //   toast("Theme Color Updated");
+    // });
   };
 
   return (

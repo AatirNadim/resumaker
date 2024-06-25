@@ -5,14 +5,14 @@ import { useResumeContext } from "@/app/context/ResumeContext";
 import { LoaderCircle } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import GlobalApi from "@lib/apiCalls";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { toast } from "sonner";
 import { EducationNode, ResumeNode } from "@/app/types";
 
 function Education() {
   const [loading, setLoading] = useState(false);
-  const { resumeObj, setResumeObj } = useResumeContext();
-  const { resumeId } = useRouter().query as { resumeId: string };
+  const { resumeObj, resumeId, setResumeObj } = useResumeContext();
+  // const { resumeId } = useRouter().query as { resumeId: string };
   const [educationalList, setEducationalList] = useState<EducationNode[]>([]);
 
   useEffect(() => {

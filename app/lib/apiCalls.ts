@@ -12,8 +12,17 @@ const axiosClient = axios.create({
   },
 });
 
-const CreateNewResume = async (data: ResumeNode) => {
-  // axiosClient.post("/create", data);
+const CreateNewResume = async (
+  resumeName: string,
+  userEmail: string
+): Promise<string> => {
+  try {
+    const res = await axiosClient.post("/create", { resumeName, userEmail });
+    return res.data.resumeId;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
 };
 
 const GetUserResumes = async (userEmail: string): Promise<any[]> => {
@@ -28,6 +37,9 @@ const UpdateResumeDetail = async (id: string, data: ResumeNode) => {
 
 const GetResumeById = async (id: string) => {
   // axiosClient.get("/user-resumes/" + id + "?populate=*");
+  console.log("id from the server: ", id)
+
+  return null;
 };
 
 const DeleteResumeById = async (id: string) => {

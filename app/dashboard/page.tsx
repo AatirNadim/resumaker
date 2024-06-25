@@ -53,7 +53,7 @@ const page = () => {
                 className="h-[280px] rounded-lg bg-slate-200 animate-pulse"
                 key={index}
               ></div>
-            ))}
+            ))} 
       </div>
     </div>
   );

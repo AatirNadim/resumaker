@@ -8,7 +8,7 @@ import GlobalApi from "@lib/apiCalls";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
 import { useResumeContext } from "@/app/context/ResumeContext";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { ExperienceNode } from "@/app/types";
 
 const formField = {
@@ -23,8 +23,8 @@ const formField = {
 
 function Experience() {
   const [experinceList, setExperinceList] = useState<ExperienceNode[]>([]);
-  const { resumeObj, setResumeObj } = useResumeContext();
-  const { resumeId } = useRouter().query as { resumeId: string };
+  const { resumeId, resumeObj, setResumeObj } = useResumeContext();
+  // const { resumeId } = useRouter().query as { resumeId: string };
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

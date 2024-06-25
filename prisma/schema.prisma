@@ -56,8 +56,8 @@ model ResumeWrapper {
   Education       Education[]
   PersonalDetails PersonalDetails[]
   Skills          Skills[]
-  summary         String
-  themeColor      String
+  summary         String            @default("")
+  themeColor      String            @default("")
 }
 
 model Experience {

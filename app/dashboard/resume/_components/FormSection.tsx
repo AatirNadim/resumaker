@@ -8,13 +8,15 @@ import Education from "./_forms/Education";
 import Skills from "./_forms/Skills";
 import Link from "next/link";
 import ThemeConfig from "./ThemeConfig";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import Navigate from "@components/Generics/Native/Navigate";
+import { useResumeContext } from "@/app/context/ResumeContext";
 
 function FormSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [enableNext, setEnableNext] = useState(true);
-  const { resumeId } = useRouter().query;
+  const { resumeId } = useResumeContext();
+  // const { resumeId } = useRouter().query;
   return (
     <div>
       <div className="flex justify-between items-center">

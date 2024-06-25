@@ -9,7 +9,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const apiKey = process.env.GEMINI_API_KEY;
 
 if (apiKey !== undefined) {
-  console.log("API Key is set for gemini based chat transactions");
+  console.log("API Key is set for gemini based chat transactions: ", apiKey);
 }
 
 const genAI = new GoogleGenerativeAI(apiKey || "");

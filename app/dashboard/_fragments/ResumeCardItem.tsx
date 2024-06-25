@@ -22,7 +22,7 @@ import {
 } from "@/app/_components/Generics/Alert";
 import GlobalApi from "@/app/lib/apiCalls";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 interface ResumeCardItemProps {
   resume: any;
