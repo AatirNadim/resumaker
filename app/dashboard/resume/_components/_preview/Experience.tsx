@@ -1,5 +1,8 @@
+import { useResumeContext } from "@/app/context/ResumeContext";
+import { ExperienceNode } from "@/app/types";
 
-function ExperiencePreview({ resumeObj }) {
+function ExperiencePreview() {
+  const { resumeObj } = useResumeContext();
   return (
     <div className="my-6">
       <h2
@@ -16,7 +19,7 @@ function ExperiencePreview({ resumeObj }) {
         }}
       />
 
-      {resumeObj?.Experience?.map((experience: any, index: number) => (
+      {resumeObj.experience.map((experience: ExperienceNode, index: number) => (
         <div key={index} className="my-5">
           <h2
             className="text-sm font-bold"
@@ -27,7 +30,7 @@ function ExperiencePreview({ resumeObj }) {
             {experience?.title}
           </h2>
           <h2 className="text-xs flex justify-between">
-            {experience?.companyName},{experience?.city},{experience?.state}
+            {experience?.companyName} {experience?.city},{experience?.state}
             <span>
               {experience?.startDate} To{" "}
               {experience?.currentlyWorking ? "Present" : experience.endDate}{" "}

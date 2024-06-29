@@ -9,7 +9,8 @@ import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
 import { useResumeContext } from "@/app/context/ResumeContext";
 // import { useRouter } from "next/router";
-import { ExperienceNode } from "@/app/types";
+import { ExperienceNode, ResumeComponentType } from "@/app/types";
+import { DatePicker } from "@/app/_components/Generics/DatePicker";
 
 const formField = {
   title: "",
@@ -22,66 +23,76 @@ const formField = {
 };
 
 function Experience() {
-  const [experinceList, setExperinceList] = useState<ExperienceNode[]>([]);
+  const [experienceList, setexperienceList] = useState<ExperienceNode[]>([
+    new ExperienceNode(),
+  ]);
   const { resumeId, resumeObj, setResumeObj } = useResumeContext();
   // const { resumeId } = useRouter().query as { resumeId: string };
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    console.log("experienceList", experienceList);
+  }, [experienceList]);
+
+  useEffect(() => {
     resumeObj?.experience.length > 0 &&
-      setExperinceList(resumeObj?.experience as ExperienceNode[]);
+      setexperienceList(resumeObj?.experience as ExperienceNode[]);
   }, []);
 
   const handleChange = (index: number, event: any) => {
-    const newEntries = experinceList.slice();
+    const newEntries = experienceList.slice();
     const { name, value } = event.target;
     newEntries[index][name] = value;
     console.log(newEntries);
-    setExperinceList(newEntries);
+    setexperienceList(newEntries);
   };
 
   const AddNewExperience = () => {
-    setExperinceList([...experinceList, new ExperienceNode()]);
+    setexperienceList([...experienceList, new ExperienceNode()]);
   };
 
   const RemoveExperience = () => {
-    setExperinceList((experinceList) => experinceList.slice(0, -1));
+    setexperienceList((experienceList) => experienceList.slice(0, -1));
   };
 
   const handleRichTextEditor = (e: any, name: string, index: number) => {
-    const newEntries = experinceList.slice();
+    const newEntries = experienceList.slice();
     newEntries[index][name] = e.target.value;
 
-    setExperinceList(newEntries);
+    setexperienceList(newEntries);
   };
 
   useEffect(() => {
     setResumeObj({
       ...resumeObj,
-      experience: experinceList,
+      experience: experienceList,
     });
-  }, [experinceList]);
+  }, [experienceList]);
 
   const onSave = () => {
     setLoading(true);
-    const data = {
-      data: {
-        Experience: experinceList.map(({ id, ...rest }) => rest),
-      },
-    };
+    // const data = {
+    //   data: {
+    //     Experience: experienceList.map(({ id, ...rest }) => rest),
+    //   },
+    // };
 
-    console.log(experinceList);
+    console.log(experienceList);
 
-    GlobalApi.UpdateResumeDetail(resumeId, data).then(
-      (res) => {
-        console.log(res);
-        setLoading(false);
-        toast("Details updated !");
-      },
-      (error) => {
-        setLoading(false);
-      }
-    );
+    // GlobalApi.UpdateResumeDetail(
+    //   resumeObj.resumeId,
+    //   ResumeComponentType.Experience,
+    //   experienceList
+    // ).then(
+    //   (res) => {
+    //     console.log(res);
+    //     setLoading(false);
+    //     toast("Details updated !");
+    //   },
+    //   (error) => {
+    //     setLoading(false);
+    //   }
+    // );
   };
   return (
     <div>
@@ -89,7 +100,7 @@ function Experience() {
         <h2 className="font-bold text-lg">Professional Experience</h2>
         <p>Add Your previous Job experience</p>
         <div>
-          {experinceList.map((item, index) => (
+          {experienceList.map((item, index) => (
             <div key={index}>
               <div className="grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg">
                 <div>
@@ -126,8 +137,13 @@ function Experience() {
                 </div>
                 <div>
                   <label className="text-xs">Start Date</label>
-                  <Input
+                  {/* <Input
                     type="date"
+                    name="startDate"
+                    onChange={(event: any) => handleChange(index, event)}
+                    defaultValue={item?.startDate}
+                  /> */}
+                  <DatePicker
                     name="startDate"
                     onChange={(event: any) => handleChange(index, event)}
                     defaultValue={item?.startDate}

@@ -23,11 +23,11 @@ function ResumePreview() {
       <SummeryPreview />
       {/* Professional Experience  */}
       {resumeObj.experience.length > 0 && (
-        <ExperiencePreview resumeObj={resumeObj} />
+        <ExperiencePreview />
       )}
       {/* Educational  */}
       {resumeObj.education.length > 0 && (
-        <EducationalPreview resumeObj={resumeObj} />
+        <EducationalPreview />
       )}
       {/* Skilss  */}
       {resumeObj.skills.length > 0 && <SkillsPreview resumeObj={resumeObj} />}

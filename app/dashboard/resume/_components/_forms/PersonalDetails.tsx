@@ -14,14 +14,10 @@ interface Props {
 }
 
 function PersonalDetail({ enabledNext }: Props) {
-  // const { resumeId } = useRouter().query as { resumeId: string };
   const { resumeObj, setResumeObj } = useResumeContext();
 
   const [formData, setFormData] = useState<PersonNode>(new PersonNode());
   const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   console.log("---", resumeObj);
-  // }, []);
 
   const handleInputChange = (e: any) => {
     enabledNext(false);
@@ -31,10 +27,15 @@ function PersonalDetail({ enabledNext }: Props) {
       ...formData,
       [name]: value,
     });
+    // setResumeObj({
+    //   ...resumeObj,
+    //   [name]: value,
+    // });
     setResumeObj({
       ...resumeObj,
-      [name]: value,
+      personDetails: { ...resumeObj.personDetails, [name]: value },
     });
+    console.log(name, value);
   };
 
   const onSave = (e: any) => {

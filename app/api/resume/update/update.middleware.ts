@@ -108,3 +108,31 @@ export const updateSkills = async (
     throw err;
   }
 };
+
+export const updateSummary = async (resumeId: string, payload: any) => {
+  try {
+    console.log("\n\nupdating summary --> ", resumeId, payload, "\n\n");
+    const resumeObj = await prisma.resumeWrapper.findUnique({
+      where: { resumeId },
+    });
+    if (!resumeObj) {
+      throw new Error("Resume not found");
+    }
+
+    console.log("resume obj\n", resumeObj, "\n");
+
+    resumeObj.summary = payload;
+
+    await prisma.resumeWrapper.update({
+      where: { resumeId },
+      data: {
+        summary: payload,
+      },
+    });
+
+    return resumeId;
+  } catch (err) {
+    console.error(`error in updating summary: ${err}`);
+    throw err;
+  }
+};

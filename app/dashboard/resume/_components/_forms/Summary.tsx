@@ -8,6 +8,7 @@ import { Brain, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 import { AIChatSession } from "@lib/genAiConfig";
 import { useResumeContext } from "@/app/context/ResumeContext";
+import { ResumeComponentType } from "@/app/types";
 // import { useRouter } from "next/router";
 
 const prompt =
@@ -19,17 +20,18 @@ interface Props {
 
 function Summery({ enabledNext }: Props) {
   const { resumeId, resumeObj, setResumeObj } = useResumeContext();
-  const [summery, setSummery] = useState<string>("");
+  const [summery, setSummery] = useState<string>(resumeObj.summary || "");
   const [loading, setLoading] = useState(false);
   // const { resumeId } = useRouter().query as { resumeId: string };
   const [aiGeneratedSummeryList, setAiGenerateSummeryList] = useState([]);
   useEffect(() => {
-    summery &&
-      setResumeObj({
-        ...resumeObj,
-        summary: summery,
-      });
+    setResumeObj({
+      ...resumeObj,
+      summary: summery,
+    });
   }, [summery]);
+
+  useEffect(() => {}, []);
 
   const GenerateSummeryFromAI = async () => {
     setLoading(true);
@@ -47,24 +49,19 @@ function Summery({ enabledNext }: Props) {
 
   const onSave = (e: any) => {
     e.preventDefault();
-
     setLoading(true);
-    const data = {
-      data: {
-        summery: summery,
-      },
-    };
-    GlobalApi.UpdateResumeDetail(resumeId, data).then(
-      (resp) => {
+    GlobalApi.UpdateResumeDetail(
+      resumeObj.resumeId,
+      ResumeComponentType.Summary,
+      summery
+    )
+      .then((resp) => {
         console.log(resp);
         enabledNext(true);
-        setLoading(false);
         toast("Details updated");
-      },
-      (error) => {
-        setLoading(false);
-      }
-    );
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   };
   return (
     <div>
@@ -86,7 +83,7 @@ function Summery({ enabledNext }: Props) {
             </Button>
           </div>
           <Textarea
-            className="mt-5"
+            className="mt-5 text-black"
             required
             value={summery}
             defaultValue={summery ? summery : resumeObj.summary}

@@ -1,4 +1,8 @@
-function EducationalPreview({ resumeObj }: { resumeObj: any }) {
+import { useResumeContext } from "@/app/context/ResumeContext";
+import { EducationNode } from "@/app/types";
+
+function EducationalPreview() {
+  const { resumeObj } = useResumeContext();
   return (
     <div className="my-6">
       <h2
@@ -15,7 +19,7 @@ function EducationalPreview({ resumeObj }: { resumeObj: any }) {
         }}
       />
 
-      {resumeObj?.education.map((education: any, index: number) => (
+      {resumeObj.education.map((education: EducationNode, index: number) => (
         <div key={index} className="my-5">
           <h2
             className="text-sm font-bold"

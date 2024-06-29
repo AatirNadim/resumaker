@@ -14,13 +14,14 @@ datasource db {
 }
 
 type ExperienceNode {
-  title       String
-  companyName String
-  city        String
-  state       String
-  startDate   String
-  endDate     String
-  workSummery String
+  title            String
+  companyName      String
+  city             String
+  state            String
+  startDate        String
+  endDate          String
+  workSummery      String
+  currentlyWorking Boolean
 }
 
 type EducationNode {

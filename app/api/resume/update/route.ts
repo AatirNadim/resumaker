@@ -5,24 +5,28 @@ import {
   updateExperience,
   updatePersonalDetails,
   updateSkills,
+  updateSummary,
 } from "./update.middleware";
 
 export async function POST(req: NextRequest) {
   try {
     const { id, resumeId, type, payload } = await req.json();
-    let personalDetailId = "";
+    let uid = "";
     switch (type) {
       case ResumeComponentType.PersonDetails:
-        personalDetailId = await updatePersonalDetails(id, resumeId, payload);
+        uid = await updatePersonalDetails(id, resumeId, payload);
         break;
       case ResumeComponentType.Experience:
-        personalDetailId = await updateExperience(id, resumeId, payload);
+        uid = await updateExperience(id, resumeId, payload);
         break;
       case ResumeComponentType.Education:
-        personalDetailId = await updateEducation(id, resumeId, payload);
+        uid = await updateEducation(id, resumeId, payload);
         break;
       case ResumeComponentType.Skills:
-        personalDetailId = await updateSkills(id, resumeId, payload);
+        uid = await updateSkills(id, resumeId, payload);
+        break;
+      case ResumeComponentType.Summary:
+        await updateSummary(resumeId, payload);
         break;
       default:
         return NextResponse.json(
@@ -31,7 +35,7 @@ export async function POST(req: NextRequest) {
         );
     }
     return NextResponse.json(
-      { message: "Resume updated", personalDetailId },
+      { message: "Resume updated", uid },
       { status: 200 }
     );
   } catch (err) {

@@ -13,6 +13,8 @@ docker exec -it mongo1 mongosh --eval "rs.initiate({
  ]
 })"
 
+pnpx prisma generate
 
+pnpx prisma db push
 
 pnpm run dev

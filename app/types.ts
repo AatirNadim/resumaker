@@ -5,6 +5,7 @@ export class ExperienceNode {
   state: string;
   startDate: string;
   endDate: string;
+  currentlyWorking: boolean;
   workSummery: string;
 
   constructor() {
@@ -15,6 +16,7 @@ export class ExperienceNode {
     this.startDate = "";
     this.endDate = "";
     this.workSummery = "";
+    this.currentlyWorking = false;
   }
 }
 
@@ -95,4 +97,5 @@ export const enum ResumeComponentType {
   Experience = "Experience",
   Education = "Education",
   Skills = "Skills",
+  Summary = "Summary",
 }

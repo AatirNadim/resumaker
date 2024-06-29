@@ -14,19 +14,7 @@ interface Props {
 }
 
 function EditResume({ id }: Props) {
-  // const { resumeId } = useParams();
-  // const router = useRouter();
-  const { resumeObj, setResumeObj } = useResumeContext();
-
-  // useEffect(() => {
-  //   console.log("params: ", id);
-  //   setResumeId(id);
-  // }, [id]);
-
-  // useEffect(() => {
-  //   console.log("resumeId: ", resumeId);
-  // }, [resumeId]);
-  // const [resumeObj, setResumeObj] = useState();
+  const { setResumeObj } = useResumeContext();
   useEffect(() => {
     if (!id) return;
     GetresumeObj();
@@ -46,9 +34,7 @@ function EditResume({ id }: Props) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 p-10 gap-10">
-      {/* Form Section  */}
       <FormSection />
-      {/* Preview Section  */}
       <ResumePreview />
     </div>
   );
