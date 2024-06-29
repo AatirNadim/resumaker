@@ -18,19 +18,19 @@ function ResumePreview() {
       }}
     >
       {/* Personal Detail  */}
-      <PersonalDetailPreview resumeObj={resumeObj} />
+      <PersonalDetailPreview />
       {/* Summery  */}
-      <SummeryPreview resumeObj={resumeObj} />
+      <SummeryPreview />
       {/* Professional Experience  */}
-      {resumeObj?.Experience?.length > 0 && (
+      {resumeObj.experience.length > 0 && (
         <ExperiencePreview resumeObj={resumeObj} />
       )}
       {/* Educational  */}
-      {resumeObj?.education?.length > 0 && (
+      {resumeObj.education.length > 0 && (
         <EducationalPreview resumeObj={resumeObj} />
       )}
       {/* Skilss  */}
-      {resumeObj?.skills?.length > 0 && <SkillsPreview resumeObj={resumeObj} />}
+      {resumeObj.skills.length > 0 && <SkillsPreview resumeObj={resumeObj} />}
     </div>
   );
 }

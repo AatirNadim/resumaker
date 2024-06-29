@@ -29,7 +29,7 @@ const GetUserResumes = async (userEmail: string): Promise<any[]> => {
   try {
     const res = await axiosClient.get(`?userEmail=${userEmail}`);
     console.log("\n\n===== res: ", res, "=====\n\n");
-    return res.data;
+    return res.data.resumes as any[];
   } catch (err) {
     console.error(err);
     return [];
@@ -42,21 +42,24 @@ const UpdateResumeDetail = async (
   payload: any
 ) => {
   const res = await axiosClient.post("/update", { resumeId, type, payload });
+  console.log("result from resume updation : ", res.data, "\n\n");
   try {
   } catch (err) {
     console.error(err);
   }
 };
 
-const GetResumeById = async (id: string) => {
+const GetResumeById = async (id: string): Promise<ResumeNode> => {
   // axiosClient.get("/user-resumes/" + id + "?populate=*");
   try {
+    console.log("fetching resume by id: ", id, "\n\n");
     const res = await axiosClient.get("?resumeId=" + id);
     console.log("\n\n===== res: ", res, "=====\n\n");
-    return (res.data as any[])[0];
+    return (res.data.resumes as any[])[0];
   } catch (err) {
     console.error(err);
-    return null;
+    // return null;
+    throw err;
   }
 };
 

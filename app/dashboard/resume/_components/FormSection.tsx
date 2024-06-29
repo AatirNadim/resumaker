@@ -15,7 +15,7 @@ import { useResumeContext } from "@/app/context/ResumeContext";
 function FormSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [enableNext, setEnableNext] = useState(true);
-  const { resumeId } = useResumeContext();
+  const { resumeObj } = useResumeContext();
   // const { resumeId } = useRouter().query;
   return (
     <div>
@@ -61,7 +61,7 @@ function FormSection() {
       ) : activeFormIndex == 5 ? (
         <Skills />
       ) : activeFormIndex == 6 ? (
-        <Navigate to={"/my-resume/" + resumeId + "/view"} />
+        <Navigate to={"/my-resume/" + resumeObj.resumeId + "/view"} />
       ) : null}
     </div>
   );

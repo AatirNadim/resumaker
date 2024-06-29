@@ -7,7 +7,7 @@ import GlobalApi from "@lib/apiCalls";
 import { toast } from "sonner";
 // import { useRouter } from "next/router";
 import { useResumeContext } from "@/app/context/ResumeContext";
-import { PersonNode } from "@/app/types";
+import { PersonNode, ResumeComponentType } from "@/app/types";
 
 interface Props {
   enabledNext: (value: boolean) => void;
@@ -15,13 +15,13 @@ interface Props {
 
 function PersonalDetail({ enabledNext }: Props) {
   // const { resumeId } = useRouter().query as { resumeId: string };
-  const { resumeId, resumeObj, setResumeObj } = useResumeContext();
+  const { resumeObj, setResumeObj } = useResumeContext();
 
   const [formData, setFormData] = useState<PersonNode>(new PersonNode());
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    console.log("---", resumeObj);
-  }, []);
+  // useEffect(() => {
+  //   console.log("---", resumeObj);
+  // }, []);
 
   const handleInputChange = (e: any) => {
     enabledNext(false);
@@ -40,20 +40,21 @@ function PersonalDetail({ enabledNext }: Props) {
   const onSave = (e: any) => {
     e.preventDefault();
     setLoading(true);
-    const data = {
-      data: formData,
-    };
-    GlobalApi.UpdateResumeDetail(resumeId, data).then(
-      (resp) => {
+    console.log("resumeObj: ", resumeObj);
+    // return;
+    GlobalApi.UpdateResumeDetail(
+      resumeObj.resumeId,
+      ResumeComponentType.PersonDetails,
+      formData
+    )
+      .then((resp) => {
         console.log(resp);
         enabledNext(true);
         setLoading(false);
         toast("Details updated");
-      },
-      (error) => {
-        setLoading(false);
-      }
-    );
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   };
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
@@ -105,6 +106,7 @@ function PersonalDetail({ enabledNext }: Props) {
               required
               defaultValue={resumeObj.personDetails.phone}
               onChange={handleInputChange}
+              type="tel"
             />
           </div>
           <div>
@@ -114,6 +116,7 @@ function PersonalDetail({ enabledNext }: Props) {
               required
               defaultValue={resumeObj.personDetails.email}
               onChange={handleInputChange}
+              type="email"
             />
           </div>
         </div>

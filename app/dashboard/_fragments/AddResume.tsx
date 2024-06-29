@@ -16,13 +16,16 @@ import { v4 as uuidv4 } from "uuid";
 import GlobalApi from "@/app/lib/apiCalls";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { useResumeContext } from "@/app/context/ResumeContext";
 
 function AddResume() {
   const [openDialog, setOpenDialog] = useState(false);
   const [resumeTitle, setResumeTitle] = useState<string>("");
   const { user } = useUser();
+  const { setResumeId } = useResumeContext();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
   // const navigation = useNavigate();
   const onCreate = async () => {
     setLoading(true);
@@ -50,6 +53,7 @@ function AddResume() {
         console.log("resumeId: ", resumeId);
         if (resumeId?.length > 0) {
           setLoading(false);
+          setResumeId(resumeId);
           router.push("/dashboard/resume/" + resumeId);
         }
       })

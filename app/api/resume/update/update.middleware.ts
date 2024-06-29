@@ -6,6 +6,12 @@ export const updatePersonalDetails = async (
   payload: any
 ) => {
   try {
+    console.log(
+      "\n\nupdating person details --> ",
+      personalDetailId,
+      payload,
+      "\n\n"
+    );
     if (!personalDetailId || personalDetailId == "") {
       const res = await prisma.personalDetails.create({
         data: {

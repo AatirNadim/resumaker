@@ -10,16 +10,18 @@ function PersonalDetailPreview() {
           color: resumeObj?.themeColor,
         }}
       >
-        {resumeObj?.firstName} {resumeObj?.lastName}
+        {resumeObj.personDetails.firstName} {resumeObj.personDetails.lastName}
       </h2>
-      <h2 className="text-center text-sm font-medium">{resumeObj?.jobTitle}</h2>
+      <h2 className="text-center text-sm font-medium">
+        {resumeObj.personDetails.jobTitle}
+      </h2>
       <h2
         className="text-center font-normal text-xs"
         style={{
           color: resumeObj?.themeColor,
         }}
       >
-        {resumeObj?.address}
+        {resumeObj.personDetails.address}
       </h2>
 
       <div className="flex justify-between">
@@ -29,7 +31,7 @@ function PersonalDetailPreview() {
             color: resumeObj?.themeColor,
           }}
         >
-          {resumeObj?.phone}
+          {resumeObj.personDetails.phone}
         </h2>
         <h2
           className="font-normal text-xs"
@@ -37,7 +39,7 @@ function PersonalDetailPreview() {
             color: resumeObj?.themeColor,
           }}
         >
-          {resumeObj?.email}
+          {resumeObj.personDetails.email}
         </h2>
       </div>
       <hr

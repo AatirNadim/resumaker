@@ -1,5 +1,9 @@
-function SummeryPreview({ resumeObj }) {
-  return <p className="text-xs">{resumeObj?.summery}</p>;
+import { useResumeContext } from "@/app/context/ResumeContext";
+
+function SummeryPreview() {
+  const { resumeObj } = useResumeContext();
+
+  return <p className="text-xs">{resumeObj.summary}</p>;
 }
 
 export default SummeryPreview;

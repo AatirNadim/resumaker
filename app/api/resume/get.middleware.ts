@@ -17,7 +17,15 @@ export const getResumeHandler = async (
   try {
     const userEmail = req.nextUrl.searchParams.get("userEmail");
     const resumeId = req.nextUrl.searchParams.get("resumeId");
+    console.log(
+      "\n\n in the resumehandler, userEmail: ",
+      userEmail,
+      "\n\n, resumeId : ",
+      resumeId,
+      "\n\n"
+    );
     if (resumeId) {
+      console.log("\n\n===== resumeId provided: ", resumeId, "=====\n\n");
       const resumeWrapper = await getResumeFromDbById(resumeId);
       if (!resumeWrapper) {
         throw new Error("Resume with the given id not found");

@@ -1,5 +1,5 @@
 import { Loader2Icon, MoreVertical, Notebook } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { Link, useNavigate } from 'react-router-dom'
 import {
   DropdownMenu,
@@ -24,8 +24,10 @@ import GlobalApi from "@/app/lib/apiCalls";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { ResumeNode } from "@/app/types";
+import { useResumeContext } from "@/app/context/ResumeContext";
 interface ResumeCardItemProps {
-  resume: any;
+  resume: ResumeNode;
   refreshData: any;
 }
 
@@ -33,13 +35,18 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
   const router = useRouter();
   const [openAlert, setOpenAlert] = useState(false);
   const [loading, setLoading] = useState(false);
+  // const { resumeId } = useResumeContext();
   // const onMenuClick=(url)=>{
   //   navigation(url)
   // }
 
+  // useEffect(() => {
+  //   console.log("in the resumecard item resumeId: ", resumeId);
+  // }, [resumeId]);
+
   const onDelete = () => {
     setLoading(true);
-    GlobalApi.DeleteResumeById(resume.documentId).then(
+    GlobalApi.DeleteResumeById(resume.resumeId).then(
       (resp) => {
         console.log(resp);
         toast("Resume Deleted!");
@@ -54,7 +61,7 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
   };
   return (
     <div className="">
-      <Link href={"/dashboard/resume/" + resume.documentId + "/edit"}>
+      <Link href={"/dashboard/resume/" + resume.resumeId}>
         <div
           className="p-14  bg-gradient-to-b
           from-pink-100 via-purple-200 to-blue-200
@@ -80,7 +87,7 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
           background: resume?.themeColor,
         }}
       >
-        <h2 className="text-sm">{resume.title}</h2>
+        <h2 className="text-sm">{resume.resumeName}</h2>
 
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -89,21 +96,21 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
           <DropdownMenuContent>
             <DropdownMenuItem
               onClick={() =>
-                router.push("/dashboard/resume/" + resume.documentId + "/edit")
+                router.push("/dashboard/resume/" + resume.resumeId + "/edit")
               }
             >
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() =>
-                router.push("/my-resume/" + resume.documentId + "/view")
+                router.push("/my-resume/" + resume.resumeId + "/view")
               }
             >
               View
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() =>
-                router.push("/my-resume/" + resume.documentId + "/view")
+                router.push("/my-resume/" + resume.resumeId + "/view")
               }
             >
               Download

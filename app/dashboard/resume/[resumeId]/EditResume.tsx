@@ -16,26 +16,27 @@ interface Props {
 function EditResume({ id }: Props) {
   // const { resumeId } = useParams();
   // const router = useRouter();
-  const { resumeId, setResumeId } = useResumeContext();
+  const { resumeObj, setResumeObj } = useResumeContext();
 
-  useEffect(() => {
-    // console.log("params: ", id);
-    setResumeId(id);
-  }, [id]);
+  // useEffect(() => {
+  //   console.log("params: ", id);
+  //   setResumeId(id);
+  // }, [id]);
 
-  useEffect(() => {
-    console.log("resumeId: ", resumeId);
-  }, [resumeId]);
+  // useEffect(() => {
+  //   console.log("resumeId: ", resumeId);
+  // }, [resumeId]);
   // const [resumeObj, setResumeObj] = useState();
   useEffect(() => {
+    if (!id) return;
     GetresumeObj();
   }, []);
 
   const GetresumeObj = () => {
     try {
-      GlobalApi.GetResumeById(resumeId as string).then((resp) => {
+      GlobalApi.GetResumeById(id as string).then((resp) => {
         console.log("resume details: ", resp);
-        // setResumeObj(resp.data.data);
+        setResumeObj(resp);
       });
     } catch (err) {
       console.error(err);

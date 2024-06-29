@@ -7,21 +7,22 @@ import {
   updateSkills,
 } from "./update.middleware";
 
-export default async function handler(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const { id, resumeId, type, payload } = await req.json();
+    let personalDetailId = "";
     switch (type) {
       case ResumeComponentType.PersonDetails:
-        await updatePersonalDetails(id, resumeId, payload);
+        personalDetailId = await updatePersonalDetails(id, resumeId, payload);
         break;
       case ResumeComponentType.Experience:
-        await updateExperience(id, resumeId, payload);
+        personalDetailId = await updateExperience(id, resumeId, payload);
         break;
       case ResumeComponentType.Education:
-        await updateEducation(id, resumeId, payload);
+        personalDetailId = await updateEducation(id, resumeId, payload);
         break;
       case ResumeComponentType.Skills:
-        await updateSkills(id, resumeId, payload);
+        personalDetailId = await updateSkills(id, resumeId, payload);
         break;
       default:
         return NextResponse.json(
@@ -29,6 +30,10 @@ export default async function handler(req: NextRequest) {
           { status: 400 }
         );
     }
+    return NextResponse.json(
+      { message: "Resume updated", personalDetailId },
+      { status: 200 }
+    );
   } catch (err) {
     return NextResponse.json(
       { error: "Internal server error" },
