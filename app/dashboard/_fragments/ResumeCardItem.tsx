@@ -1,14 +1,12 @@
 import { Loader2Icon, MoreVertical, Notebook } from "lucide-react";
 import React, { useEffect, useState } from "react";
 // import { Link, useNavigate } from 'react-router-dom'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/app/_components/Generics/DropDown";
+import GlobalApi from "@/app/lib/apiCalls";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { ResumeNode } from "@/app/types";
+import { useResumeContext } from "@/app/context/ResumeContext";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,14 +16,13 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/app/_components/Generics/Alert";
-import GlobalApi from "@/app/lib/apiCalls";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { ResumeNode } from "@/app/types";
-import { useResumeContext } from "@/app/context/ResumeContext";
+} from "@/app/_components/ui/alert-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/app/_components/ui/dropdown-menu";
 interface ResumeCardItemProps {
   resume: ResumeNode;
   refreshData: any;

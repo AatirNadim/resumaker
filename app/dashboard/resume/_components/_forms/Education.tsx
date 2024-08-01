@@ -1,13 +1,13 @@
-import { Button } from "@/app/_components/Generics/Button";
-import { Input } from "@/app/_components/Generics/Input";
-import { Textarea } from "@/app/_components/Generics/TextArea";
+import { Button } from "@/app/_components/ui/button";
+import { Input } from "@/app/_components/ui/input";
+import { Textarea } from "@/app/_components/ui/textarea";
 import { useResumeContext } from "@/app/context/ResumeContext";
 import { LoaderCircle } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import GlobalApi from "@lib/apiCalls";
 // import { useRouter } from "next/router";
 import { toast } from "sonner";
-import { EducationNode, ResumeNode } from "@/app/types";
+import { EducationNode, ResumeComponentType, ResumeNode } from "@/app/types";
 
 function Education() {
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,11 @@ function Education() {
       },
     };
 
-    GlobalApi.UpdateResumeDetail(resumeId, data).then(
+    GlobalApi.UpdateResumeDetail(
+      resumeId,
+      ResumeComponentType.Education,
+      data
+    ).then(
       (resp) => {
         console.log(resp);
         setLoading(false);

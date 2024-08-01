@@ -1,9 +1,9 @@
-import { Input } from "@/app/_components/Generics/Input";
+import { Input } from "@/app/_components/ui/input";
 import React, { useContext, useEffect, useState } from "react";
 import { Rating } from "@smastrom/react-rating";
 
 import "@smastrom/react-rating/style.css";
-import { Button } from "@/app/_components/Generics/Button";
+import { Button } from "@/app/_components/ui/button";
 import { LoaderCircle } from "lucide-react";
 // import { resumeObjContext } from "@/context/resumeObjContext";
 import GlobalApi from "@lib/apiCalls";
@@ -11,7 +11,7 @@ import GlobalApi from "@lib/apiCalls";
 import { toast } from "sonner";
 // import { useRouter } from "next/router";
 import { useResumeContext } from "@/app/context/ResumeContext";
-import { SkillNode } from "@/app/types";
+import { ResumeComponentType, SkillNode } from "@/app/types";
 
 function Skills() {
   const [skillsList, setSkillsList] = useState<SkillNode[]>([]);
@@ -47,7 +47,11 @@ function Skills() {
       },
     };
 
-    GlobalApi.UpdateResumeDetail(resumeId, data).then(
+    GlobalApi.UpdateResumeDetail(
+      resumeId,
+      ResumeComponentType.Skills,
+      data
+    ).then(
       (resp) => {
         console.log(resp);
         setLoading(false);

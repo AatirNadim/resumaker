@@ -1,4 +1,4 @@
-docker run -d --rm -p 27017:27017 --name mongo1 --network mongoCluster mongo mongod --replSet myReplicaSet --bind_ip localhost,mongo1
+docker run -d --rm -p 27017:27017 --name mongo1 --mount source=mongo-volume,target=/data/db --network mongoCluster mongo mongod --replSet myReplicaSet --bind_ip localhost,mongo1
 
 docker run -d --rm -p 27018:27017 --name mongo2 --network mongoCluster mongo mongod --replSet myReplicaSet --bind_ip localhost,mongo2
 
@@ -13,8 +13,7 @@ docker exec -it mongo1 mongosh --eval "rs.initiate({
  ]
 })"
 
-pnpx prisma generate
-
-pnpx prisma db push
+# pnpx prisma generate
+# pnpx prisma db push
 
 pnpm run dev

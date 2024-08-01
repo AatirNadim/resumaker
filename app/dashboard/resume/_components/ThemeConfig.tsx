@@ -3,8 +3,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@components/Generics/Popover";
-import { Button } from "@/app/_components/Generics/Button";
+} from "@components/ui/popover";
+import { Button } from "@/app/_components/ui/button";
 import { LayoutGrid } from "lucide-react";
 // import { ResumeInfoContext } from "@/context/ResumeInfoContext";
 import GlobalApi from "@lib/apiCalls";

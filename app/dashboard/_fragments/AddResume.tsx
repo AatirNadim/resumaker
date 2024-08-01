@@ -2,21 +2,20 @@
 
 import { Loader2, PlusSquare } from "lucide-react";
 import React, { useState } from "react";
+import { Button } from "@/app/_components/ui/button";
+import { Input } from "@/app/_components/ui/input";
+import { v4 as uuidv4 } from "uuid";
+import GlobalApi from "@/app/lib/apiCalls";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useResumeContext } from "@/app/context/ResumeContext";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/app/_components/Generics/Dialog";
-import { Button } from "@/app/_components/Generics/Button";
-import { Input } from "@/app/_components/Generics/Input";
-import { v4 as uuidv4 } from "uuid";
-import GlobalApi from "@/app/lib/apiCalls";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { useResumeContext } from "@/app/context/ResumeContext";
+} from "@/app/_components/ui/dialog";
 
 function AddResume() {
   const [openDialog, setOpenDialog] = useState(false);

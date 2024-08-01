@@ -1,5 +1,5 @@
 import Header from "@/app/_components/Header";
-import { Button } from "@/app/_components/Generics/Button";
+import { Button } from "@/app/_components/ui/button";
 // import { ResumeInfoContext } from "@/context/ResumeInfoContext";
 import ResumePreview from "@/app/dashboard/resume/_components/ResumePreview";
 import React, { useEffect, useState } from "react";
@@ -18,8 +18,8 @@ function ViewResume() {
   }, []);
   const GetResumeInfo = () => {
     GlobalApi.GetResumeById(resumeId).then((resp) => {
-      console.log(resp.data.data);
-      setResumeInfo(resp.data.data);
+      console.log(resp);
+      setResumeInfo(resp);
     });
   };
 

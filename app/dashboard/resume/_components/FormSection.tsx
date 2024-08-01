@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PersonalDetail from "./_forms/PersonalDetails";
-import { Button } from "@components/Generics/Button";
+import { Button } from "@/app/_components/ui/button";
 import { ArrowLeft, ArrowRight, Home, LayoutGrid } from "lucide-react";
 import Summery from "./_forms/Summary";
 import Experience from "./_forms/Experience";
@@ -9,7 +9,7 @@ import Skills from "./_forms/Skills";
 import Link from "next/link";
 import ThemeConfig from "./ThemeConfig";
 // import { useRouter } from "next/router";
-import Navigate from "@components/Generics/Native/Navigate";
+// import Navigate from "@components/Generics/Native/Navigate";
 import { useResumeContext } from "@/app/context/ResumeContext";
 
 function FormSection() {
@@ -60,9 +60,10 @@ function FormSection() {
         <Education />
       ) : activeFormIndex == 5 ? (
         <Skills />
-      ) : activeFormIndex == 6 ? (
-        <Navigate to={"/my-resume/" + resumeObj.resumeId + "/view"} />
-      ) : null}
+      ) : // activeFormIndex == 6 ? (
+      //   <Navigate to={"/my-resume/" + resumeObj.resumeId + "/view"} />
+      // ) :
+      null}
     </div>
   );
 }

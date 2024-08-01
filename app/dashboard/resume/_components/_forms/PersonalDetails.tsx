@@ -1,5 +1,5 @@
-import { Button } from "@/app/_components/Generics/Button";
-import { Input } from "@/app/_components/Generics/Input";
+import { Button } from "@/app/_components/ui/button";
+import { Input } from "@/app/_components/ui/input";
 // import { resumeObjContext } from '@/context/resumeObjContext'
 import { LoaderCircle } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";

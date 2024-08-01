@@ -1,5 +1,5 @@
-import { Button } from "@/app/_components/Generics/Button";
-import { Input } from "@/app/_components/Generics/Input";
+import { Button } from "@/app/_components/ui/button";
+import { Input } from "@/app/_components/ui/input";
 import React, { useContext, useEffect, useState } from "react";
 import RichTextEditor from "../Editor";
 // import { resumeObjContext } from "@/context/resumeObjContext";
@@ -10,17 +10,17 @@ import { LoaderCircle } from "lucide-react";
 import { useResumeContext } from "@/app/context/ResumeContext";
 // import { useRouter } from "next/router";
 import { ExperienceNode, ResumeComponentType } from "@/app/types";
-import { DatePicker } from "@/app/_components/Generics/DatePicker";
+import { DatePicker } from "@/app/_components/ui/datepicker";
 
-const formField = {
-  title: "",
-  companyName: "",
-  city: "",
-  state: "",
-  startDate: "",
-  endDate: "",
-  workSummery: "",
-};
+// const formField = {
+//   title: "",
+//   companyName: "",
+//   city: "",
+//   state: "",
+//   startDate: "",
+//   endDate: "",
+//   workSummery: "",
+// };
 
 function Experience() {
   const [experienceList, setexperienceList] = useState<ExperienceNode[]>([
@@ -40,10 +40,12 @@ function Experience() {
   }, []);
 
   const handleChange = (index: number, event: any) => {
+    console.log("change in the date: ", index, event);
     const newEntries = experienceList.slice();
     const { name, value } = event.target;
+    //@ts-expect-error
     newEntries[index][name] = value;
-    console.log(newEntries);
+    // console.log(newEntries);
     setexperienceList(newEntries);
   };
 
@@ -57,6 +59,7 @@ function Experience() {
 
   const handleRichTextEditor = (e: any, name: string, index: number) => {
     const newEntries = experienceList.slice();
+    //@ts-expect-error
     newEntries[index][name] = e.target.value;
 
     setexperienceList(newEntries);
@@ -71,28 +74,21 @@ function Experience() {
 
   const onSave = () => {
     setLoading(true);
-    // const data = {
-    //   data: {
-    //     Experience: experienceList.map(({ id, ...rest }) => rest),
-    //   },
-    // };
 
-    console.log(experienceList);
+    // console.log(experienceList);
 
-    // GlobalApi.UpdateResumeDetail(
-    //   resumeObj.resumeId,
-    //   ResumeComponentType.Experience,
-    //   experienceList
-    // ).then(
-    //   (res) => {
-    //     console.log(res);
-    //     setLoading(false);
-    //     toast("Details updated !");
-    //   },
-    //   (error) => {
-    //     setLoading(false);
-    //   }
-    // );
+    GlobalApi.UpdateResumeDetail(
+      resumeObj.resumeId,
+      ResumeComponentType.Experience,
+      experienceList
+    )
+      .then((res) => {
+        console.log(res);
+        setLoading(false);
+        toast("Details updated!");
+      })
+      .catch((err) => toast("Error occured while updating details"))
+      .finally(() => setLoading(false));
   };
   return (
     <div>
@@ -145,16 +141,29 @@ function Experience() {
                   /> */}
                   <DatePicker
                     name="startDate"
-                    onChange={(event: any) => handleChange(index, event)}
+                    // onChange={(event: any) => handleChange(index, event)}
+
+                    index={index}
+                    setExperienceList={setexperienceList}
+                    key={index}
                     defaultValue={item?.startDate}
                   />
                 </div>
                 <div>
                   <label className="text-xs">End Date</label>
-                  <Input
+                  {/* <Input
                     type="date"
                     name="endDate"
                     onChange={(event: any) => handleChange(index, event)}
+                    defaultValue={item?.endDate}
+                  /> */}
+                  <DatePicker
+                    name="endDate"
+                    // onChange={(event: any) => handleChange(index, event)}
+
+                    index={index}
+                    setExperienceList={setexperienceList}
+                    key={index}
                     defaultValue={item?.endDate}
                   />
                 </div>

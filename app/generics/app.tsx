@@ -4,7 +4,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Button } from "../_components/Generics/Button";
+// import { Button } from "../_components/Generics/Button";
 // import { Navigate, Outlet } from "react-router-dom";
 import { useUser } from "@clerk/nextjs";
 import Header from "../_components/Header";

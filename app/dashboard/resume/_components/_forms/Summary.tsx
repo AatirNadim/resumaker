@@ -1,5 +1,5 @@
-import { Button } from "@/app/_components/Generics/Button";
-import { Textarea } from "@/app/_components/Generics/TextArea";
+import { Button } from "@/app/_components/ui/button";
+import { Textarea } from "@/app/_components/ui/textarea";
 // import { resumeObjContext } from "@/context/resumeObjContext";
 import React, { useContext, useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
