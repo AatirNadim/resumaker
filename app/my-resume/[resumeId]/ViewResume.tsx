@@ -9,9 +9,13 @@ import { RWebShare } from "react-web-share";
 import { useRouter } from "next/router";
 // import ResumeContextProvider from "@/app/context/ResumeContext";
 
-function ViewResume() {
+interface IResumeInfo {
+  resumeId: string;
+}
+
+function ViewResume({ resumeId }: IResumeInfo) {
   const [resumeInfo, setResumeInfo] = useState();
-  const { resumeId } = useRouter().query;
+  // const { resumeId } = useRouter().query;
 
   useEffect(() => {
     GetResumeInfo();

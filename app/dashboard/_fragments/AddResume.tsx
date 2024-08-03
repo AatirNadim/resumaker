@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import GlobalApi from "@/app/lib/apiCalls";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { useResumeContext } from "@/app/context/ResumeContext";
+import { useResumeStore } from "@/app/context/ResumeContext";
 import {
   Dialog,
   DialogContent,
@@ -21,22 +21,12 @@ function AddResume() {
   const [openDialog, setOpenDialog] = useState(false);
   const [resumeTitle, setResumeTitle] = useState<string>("");
   const { user } = useUser();
-  const { setResumeId } = useResumeContext();
+  const { setResumeId } = useResumeStore();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // const navigation = useNavigate();
   const onCreate = async () => {
     setLoading(true);
-    // const uuid = uuidv4();
-    // const data = {
-    //   data: {
-    //     title: resumeTitle,
-    //     resumeId: uuid,
-    //     userEmail: user?.primaryEmailAddress?.emailAddress,
-    //     userName: user?.fullName,
-    //   },
-    // };
 
     if (!user?.primaryEmailAddress?.emailAddress) {
       alert("User email not found");

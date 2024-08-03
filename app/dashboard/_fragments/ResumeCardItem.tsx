@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ResumeNode } from "@/app/types";
-import { useResumeContext } from "@/app/context/ResumeContext";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,14 +31,8 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
   const router = useRouter();
   const [openAlert, setOpenAlert] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const { resumeId } = useResumeContext();
-  // const onMenuClick=(url)=>{
-  //   navigation(url)
-  // }
 
-  // useEffect(() => {
-  //   console.log("in the resumecard item resumeId: ", resumeId);
-  // }, [resumeId]);
+  console.log("resume: ", resume);
 
   const onDelete = () => {
     setLoading(true);
@@ -58,13 +51,12 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
   };
   return (
     <div className="">
-      <Link href={"/dashboard/resume/" + resume.resumeId}>
+      <Link href={`/dashboard/resume/${resume.resumeId}`}>
         <div
           className="p-14  bg-gradient-to-b
           from-pink-100 via-purple-200 to-blue-200
         h-[280px] 
-          rounded-t-lg border-t-4
-        "
+          rounded-t-lg border-t-4"
           style={{
             borderColor: resume?.themeColor,
           }}
@@ -73,13 +65,12 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
             className="flex 
         items-center justify-center h-[180px] "
           >
-            {/* <Notebook/> */}
-            <img src="/cv.png" width={80} height={80} />
+            <img src="/cv.png" width={80} height={80} alt="cv_img" />
           </div>
         </div>
       </Link>
       <div
-        className="border p-3 flex justify-between  text-white rounded-b-lg shadow-lg"
+        className="border p-3 flex justify-between rounded-b-lg shadow-lg"
         style={{
           background: resume?.themeColor,
         }}
@@ -93,22 +84,18 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
           <DropdownMenuContent>
             <DropdownMenuItem
               onClick={() =>
-                router.push("/dashboard/resume/" + resume.resumeId + "/edit")
+                router.push(`/dashboard/resume/${resume.resumeId}`)
               }
             >
               Edit
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() =>
-                router.push("/my-resume/" + resume.resumeId + "/view")
-              }
+              onClick={() => router.push(`/my-resume/${resume.resumeId}/view`)}
             >
               View
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() =>
-                router.push("/my-resume/" + resume.resumeId + "/view")
-              }
+              onClick={() => router.push(`/my-resume/${resume.resumeId}/view`)}
             >
               Download
             </DropdownMenuItem>

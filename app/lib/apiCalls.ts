@@ -1,14 +1,10 @@
-// "use server";
-
 import axios from "axios";
 import { ResumeComponentType, ResumeNode } from "../types";
 
-// const API_KEY=
 const axiosClient = axios.create({
   baseURL: "/api/resume",
   headers: {
     "Content-Type": "application/json",
-    // Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
   },
 });
 
@@ -50,7 +46,6 @@ const UpdateResumeDetail = async (
 };
 
 const GetResumeById = async (id: string): Promise<ResumeNode> => {
-  // axiosClient.get("/user-resumes/" + id + "?populate=*");
   try {
     console.log("fetching resume by id: ", id, "\n\n");
     const res = await axiosClient.get("?resumeId=" + id);

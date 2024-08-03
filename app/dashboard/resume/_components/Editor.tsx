@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/app/_components/ui/button";
 // import { resumeObjContext } from "@/context/resumeObjContext";
 import { Brain, LoaderCircle } from "lucide-react";
@@ -20,7 +22,7 @@ import {
 } from "react-simple-wysiwyg";
 import { AIChatSession } from "@/app/lib/genAiConfig";
 import { toast } from "sonner";
-import { useResumeContext } from "@/app/context/ResumeContext";
+import { useResumeStore } from "@/app/context/ResumeContext";
 const PROMPT =
   "position titile: {positionTitle} , Depends on position title give me 5-7 bullet points for my experience in resume (Please do not add experince level and No JSON array) , give me result in HTML tags";
 
@@ -36,7 +38,7 @@ function RichTextEditor({
   defaultValue,
 }: Props) {
   const [value, setValue] = useState(defaultValue);
-  const { resumeObj, setResumeObj } = useResumeContext();
+  const { resumeObj } = useResumeStore();
   const [loading, setLoading] = useState(false);
 
   const GenerateSummeryFromAI = async () => {

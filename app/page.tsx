@@ -6,27 +6,11 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import Header from "./_components/Header";
 
 export default function Component() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link
-          href="#"
-          className="flex items-center justify-center"
-          prefetch={false}
-        >
-          <span className="sr-only">Resumaker</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-        </nav>
-      </header>
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
@@ -73,9 +57,8 @@ export default function Component() {
                 </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Our AI-powered resume builder takes the hassle out of creating
-                  a professional resume. With personalized suggestions,
-                  you can craft
-                  the perfect resume in minutes.
+                  a professional resume. With personalized suggestions, you can
+                  craft the perfect resume in minutes.
                 </p>
               </div>
             </div>

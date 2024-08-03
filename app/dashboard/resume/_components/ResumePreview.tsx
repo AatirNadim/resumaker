@@ -1,4 +1,4 @@
-// import { resumeObjContext } from "@/context/resumeObjContext";
+"use client";
 import React from "react";
 import PersonalDetailPreview from "./_preview/PersonalDetail";
 import SummeryPreview from "./_preview/Summary";

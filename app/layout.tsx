@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "./_components/ui/theme-provider";
+import Header from "./_components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +22,16 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <NextTopLoader showSpinner={false} color="#E11D48" />
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextTopLoader showSpinner={false} color="#E11D48" />
+            <Header />
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
