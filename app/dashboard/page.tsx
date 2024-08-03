@@ -8,7 +8,7 @@ import GlobalApi from "@lib/apiCalls";
 import AddResume from "./_fragments/AddResume";
 import ResumeCardItem from "./_fragments/ResumeCardItem";
 import { ResumeNode } from "../types";
-import ResumeContextProvider from "../context/ResumeContext";
+// import ResumeContextProvider from "../context/ResumeContext";
 
 const page = () => {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -35,34 +35,34 @@ const page = () => {
   };
 
   return (
-    <ResumeContextProvider>
-      <div className="p-10 md:px-20 lg:px-32">
-        <h2 className="font-bold text-3xl">My Resumes</h2>
-        <p>Start Creating AI resume to land your next Job role</p>
-        <div
-          className="grid grid-cols-2 
+    // <ResumeContextProvider>
+    <div className="p-10 md:px-20 lg:px-32">
+      <h2 className="font-bold text-3xl">My Resumes</h2>
+      <p>Start Creating AI resume to land your next Job role</p>
+      <div
+        className="grid grid-cols-2 
       md:grid-cols-3 lg:grid-cols-5 gap-5
       mt-10
       "
-        >
-          <AddResume />
-          {resumeList.length > 0
-            ? resumeList.map((resume, index) => (
-                <ResumeCardItem
-                  resume={resume}
-                  key={index}
-                  refreshData={GetResumesList}
-                />
-              ))
-            : [1, 2, 3, 4].map((_, index) => (
-                <div
-                  className="h-[280px] rounded-lg bg-slate-200 animate-pulse"
-                  key={index}
-                ></div>
-              ))}
-        </div>
+      >
+        <AddResume />
+        {resumeList.length > 0
+          ? resumeList.map((resume, index) => (
+              <ResumeCardItem
+                resume={resume}
+                key={index}
+                refreshData={GetResumesList}
+              />
+            ))
+          : [1, 2, 3, 4].map((_, index) => (
+              <div
+                className="h-[280px] rounded-lg bg-slate-200 animate-pulse"
+                key={index}
+              ></div>
+            ))}
       </div>
-    </ResumeContextProvider>
+    </div>
+    // </ResumeContextProvider>
   );
 };
 

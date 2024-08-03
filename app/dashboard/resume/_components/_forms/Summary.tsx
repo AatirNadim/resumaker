@@ -1,14 +1,14 @@
 import { Button } from "@/app/_components/ui/button";
 import { Textarea } from "@/app/_components/ui/textarea";
 // import { resumeObjContext } from "@/context/resumeObjContext";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 import GlobalApi from "@lib/apiCalls";
 import { Brain, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 import { AIChatSession } from "@lib/genAiConfig";
-import { useResumeContext } from "@/app/context/ResumeContext";
 import { ResumeComponentType } from "@/app/types";
+import { useResumeStore } from "@/app/context/ResumeContext";
 // import { useRouter } from "next/router";
 
 const prompt =
@@ -19,7 +19,7 @@ interface Props {
 }
 
 function Summery({ enabledNext }: Props) {
-  const { resumeId, resumeObj, setResumeObj } = useResumeContext();
+  const { resumeId, resumeObj, setResumeObj } = useResumeStore();
   const [summery, setSummery] = useState<string>(resumeObj.summary || "");
   const [loading, setLoading] = useState(false);
   // const { resumeId } = useRouter().query as { resumeId: string };

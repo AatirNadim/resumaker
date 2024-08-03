@@ -7,14 +7,15 @@ import GlobalApi from "@lib/apiCalls";
 
 // import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useResumeContext } from "@/app/context/ResumeContext";
+import { useResumeStore } from "@/app/context/ResumeContext";
 
 interface Props {
   id: string;
 }
 
 function EditResume({ id }: Props) {
-  const { setResumeObj } = useResumeContext();
+  const { setResumeObj } = useResumeStore();
+
   useEffect(() => {
     if (!id) return;
     GetresumeObj();

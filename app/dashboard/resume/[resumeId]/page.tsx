@@ -1,9 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 import EditResume from "./EditResume";
-import ResumeContextProvider, {
-  useResumeContext,
-} from "@/app/context/ResumeContext";
 
 interface Props {
   params: { resumeId: string };
@@ -11,9 +8,9 @@ interface Props {
 
 const page = ({ params }: Props) => {
   return (
-    <ResumeContextProvider>
-      <EditResume id={params.resumeId} />
-    </ResumeContextProvider>
+    // <ResumeContextProvider>
+    <EditResume id={params.resumeId} />
+    // </ResumeContextProvider>
   );
 };
 

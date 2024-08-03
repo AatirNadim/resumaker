@@ -1,17 +1,17 @@
 import { Button } from "@/app/_components/ui/button";
 import { Input } from "@/app/_components/ui/input";
 import { Textarea } from "@/app/_components/ui/textarea";
-import { useResumeContext } from "@/app/context/ResumeContext";
 import { LoaderCircle } from "lucide-react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import GlobalApi from "@lib/apiCalls";
 // import { useRouter } from "next/router";
 import { toast } from "sonner";
 import { EducationNode, ResumeComponentType, ResumeNode } from "@/app/types";
+import { useResumeStore } from "@/app/context/ResumeContext";
 
 function Education() {
   const [loading, setLoading] = useState(false);
-  const { resumeObj, resumeId, setResumeObj } = useResumeContext();
+  const { resumeObj, resumeId, setResumeObj } = useResumeStore();
   // const { resumeId } = useRouter().query as { resumeId: string };
   const [educationalList, setEducationalList] = useState<EducationNode[]>([]);
 
@@ -34,16 +34,16 @@ function Education() {
   };
   const onSave = () => {
     setLoading(true);
-    const data = {
-      data: {
-        education: educationalList.map(({ id, ...rest }) => rest),
-      },
-    };
+    // const data = {
+    //   data: {
+    //     education: educationalList.map(({ id, ...rest }) => rest),
+    //   },
+    // };
 
     GlobalApi.UpdateResumeDetail(
       resumeId,
       ResumeComponentType.Education,
-      data
+      educationalList
     ).then(
       (resp) => {
         console.log(resp);

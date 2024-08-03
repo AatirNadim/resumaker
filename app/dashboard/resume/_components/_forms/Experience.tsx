@@ -1,16 +1,16 @@
 import { Button } from "@/app/_components/ui/button";
 import { Input } from "@/app/_components/ui/input";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import RichTextEditor from "../Editor";
 // import { resumeObjContext } from "@/context/resumeObjContext";
 // import { useParams } from "react-router-dom";
 import GlobalApi from "@lib/apiCalls";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
-import { useResumeContext } from "@/app/context/ResumeContext";
 // import { useRouter } from "next/router";
 import { ExperienceNode, ResumeComponentType } from "@/app/types";
 import { DatePicker } from "@/app/_components/ui/datepicker";
+import { useResumeStore } from "@/app/context/ResumeContext";
 
 // const formField = {
 //   title: "",
@@ -26,7 +26,7 @@ function Experience() {
   const [experienceList, setexperienceList] = useState<ExperienceNode[]>([
     new ExperienceNode(),
   ]);
-  const { resumeId, resumeObj, setResumeObj } = useResumeContext();
+  const { resumeId, resumeObj, setResumeObj } = useResumeStore();
   // const { resumeId } = useRouter().query as { resumeId: string };
   const [loading, setLoading] = useState(false);
 

@@ -7,7 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ResuMaker",
+  title: "ResuMaker - AI Resume Builder",
   description: "Generate your personalized resume in seconds",
 };
 

@@ -1,7 +1,7 @@
-import { useResumeContext } from "@/app/context/ResumeContext";
+import { useResumeStore } from "@/app/context/ResumeContext";
 
 function PersonalDetailPreview() {
-  const { resumeObj } = useResumeContext();
+  const { resumeObj } = useResumeStore();
   return (
     <div>
       <h2

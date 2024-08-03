@@ -2,19 +2,19 @@ import { Button } from "@/app/_components/ui/button";
 import { Input } from "@/app/_components/ui/input";
 // import { resumeObjContext } from '@/context/resumeObjContext'
 import { LoaderCircle } from "lucide-react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import GlobalApi from "@lib/apiCalls";
 import { toast } from "sonner";
 // import { useRouter } from "next/router";
-import { useResumeContext } from "@/app/context/ResumeContext";
 import { PersonNode, ResumeComponentType } from "@/app/types";
+import { useResumeStore } from "@/app/context/ResumeContext";
 
 interface Props {
   enabledNext: (value: boolean) => void;
 }
 
 function PersonalDetail({ enabledNext }: Props) {
-  const { resumeObj, setResumeObj } = useResumeContext();
+  const { resumeObj, setResumeObj } = useResumeStore();
 
   const [formData, setFormData] = useState<PersonNode>(new PersonNode());
   const [loading, setLoading] = useState(false);

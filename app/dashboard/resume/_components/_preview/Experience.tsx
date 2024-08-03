@@ -1,8 +1,8 @@
-import { useResumeContext } from "@/app/context/ResumeContext";
+import { useResumeStore } from "@/app/context/ResumeContext";
 import { ExperienceNode } from "@/app/types";
 
 function ExperiencePreview() {
-  const { resumeObj } = useResumeContext();
+  const { resumeObj } = useResumeStore();
   return (
     <div className="my-6">
       <h2

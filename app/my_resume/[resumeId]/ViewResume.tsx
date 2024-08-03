@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import GlobalApi from "@lib/apiCalls";
 import { RWebShare } from "react-web-share";
 import { useRouter } from "next/router";
-import ResumeContextProvider from "@/app/context/ResumeContext";
+// import ResumeContextProvider from "@/app/context/ResumeContext";
 
 function ViewResume() {
   const [resumeInfo, setResumeInfo] = useState();
@@ -29,7 +29,8 @@ function ViewResume() {
 
   return (
     // <ResumeInfoContext.Provider value={{ resumeInfo, setResumeInfo }}>
-    <ResumeContextProvider>
+    // <ResumeContextProvider>
+    <>
       <div id="no-print">
         <Header />
 
@@ -71,7 +72,7 @@ function ViewResume() {
           <ResumePreview />
         </div>
       </div>
-    </ResumeContextProvider>
+    </>
   );
 }
 

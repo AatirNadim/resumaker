@@ -1,5 +1,5 @@
 import { Input } from "@/app/_components/ui/input";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Rating } from "@smastrom/react-rating";
 
 import "@smastrom/react-rating/style.css";
@@ -9,9 +9,9 @@ import { LoaderCircle } from "lucide-react";
 import GlobalApi from "@lib/apiCalls";
 // import { useParams } from "react-router-dom";
 import { toast } from "sonner";
-// import { useRouter } from "next/router";
-import { useResumeContext } from "@/app/context/ResumeContext";
+
 import { ResumeComponentType, SkillNode } from "@/app/types";
+import { useResumeStore } from "@/app/context/ResumeContext";
 
 function Skills() {
   const [skillsList, setSkillsList] = useState<SkillNode[]>([]);
@@ -19,7 +19,7 @@ function Skills() {
   // const { resumeId } = router.query as { resumeId: string };
 
   const [loading, setLoading] = useState(false);
-  const { resumeId, resumeObj, setResumeObj } = useResumeContext();
+  const { resumeId, resumeObj, setResumeObj } = useResumeStore();
 
   useEffect(() => {
     resumeObj && setSkillsList(resumeObj?.skills);
@@ -41,16 +41,11 @@ function Skills() {
 
   const onSave = () => {
     setLoading(true);
-    const data = {
-      data: {
-        skills: skillsList.map(({ id, ...rest }) => rest),
-      },
-    };
 
     GlobalApi.UpdateResumeDetail(
       resumeId,
       ResumeComponentType.Skills,
-      data
+      skillsList
     ).then(
       (resp) => {
         console.log(resp);
