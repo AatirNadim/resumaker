@@ -6,8 +6,8 @@ import ResumePreview from "../_components/ResumePreview";
 import GlobalApi from "@lib/apiCalls";
 
 // import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { useResumeStore } from "@/app/context/ResumeContext";
+import { toast } from "@/app/_components/ui/use-toast";
 
 interface Props {
   id: string;
@@ -29,7 +29,10 @@ function EditResume({ id }: Props) {
       });
     } catch (err) {
       console.error(err);
-      toast(`Error while fetching resume data: ${err}`);
+      toast({
+        variant: "destructive",
+        description: `Error while fetching resume data: ${err}`,
+      });
     }
   };
 

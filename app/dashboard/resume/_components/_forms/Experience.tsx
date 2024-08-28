@@ -4,25 +4,13 @@ import { Button } from "@/app/_components/ui/button";
 import { Input } from "@/app/_components/ui/input";
 import React, { useEffect, useState } from "react";
 import RichTextEditor from "../Editor";
-// import { resumeObjContext } from "@/context/resumeObjContext";
-// import { useParams } from "react-router-dom";
 import GlobalApi from "@lib/apiCalls";
-import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
 // import { useRouter } from "next/router";
 import { ExperienceNode, ResumeComponentType } from "@/app/types";
 import { DatePicker } from "@/app/_components/ui/datepicker";
 import { useResumeStore } from "@/app/context/ResumeContext";
-
-// const formField = {
-//   title: "",
-//   companyName: "",
-//   city: "",
-//   state: "",
-//   startDate: "",
-//   endDate: "",
-//   workSummery: "",
-// };
+import { toast } from "@/app/_components/ui/use-toast";
 
 function Experience() {
   const [experienceList, setexperienceList] = useState<ExperienceNode[]>([
@@ -87,9 +75,14 @@ function Experience() {
       .then((res) => {
         console.log(res);
         setLoading(false);
-        toast("Details updated!");
+        toast({ description: "Details updated!" });
       })
-      .catch((err) => toast("Error occured while updating details"))
+      .catch((err: any) =>
+        toast({
+          variant: "destructive",
+          description: err.error || err.message || "Error occured while updating details",
+        })
+      )
       .finally(() => setLoading(false));
   };
   return (

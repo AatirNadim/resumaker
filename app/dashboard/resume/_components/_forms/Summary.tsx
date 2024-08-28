@@ -7,10 +7,11 @@ import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 import GlobalApi from "@lib/apiCalls";
 import { Brain, LoaderCircle } from "lucide-react";
-import { toast } from "sonner";
+
 import { AIChatSession } from "@lib/genAiConfig";
 import { ResumeComponentType } from "@/app/types";
 import { useResumeStore } from "@/app/context/ResumeContext";
+import { toast } from "@/app/_components/ui/use-toast";
 // import { useRouter } from "next/router";
 
 const prompt =
@@ -26,12 +27,12 @@ function Summery({ enabledNext }: Props) {
   const [loading, setLoading] = useState(false);
   // const { resumeId } = useRouter().query as { resumeId: string };
   const [aiGeneratedSummeryList, setAiGenerateSummeryList] = useState([]);
-  useEffect(() => {
-    setResumeObj({
-      ...resumeObj,
-      summary: summery,
-    });
-  }, [summery]);
+  // useEffect(() => {
+  //   setResumeObj({
+  //     ...resumeObj,
+  //     summary: summery,
+  //   });
+  // }, [summery]);
 
   useEffect(() => {}, []);
 
@@ -60,7 +61,15 @@ function Summery({ enabledNext }: Props) {
       .then((resp) => {
         console.log(resp);
         enabledNext(true);
-        toast("Details updated");
+        // setResumeObj({
+        //   ...resumeObj,
+        //   summary: summery,
+        // });
+        toast({
+          title: "Summery Updated",
+          description: "Summery has been updated successfully",
+          variant: "default",
+        });
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
@@ -68,12 +77,12 @@ function Summery({ enabledNext }: Props) {
   return (
     <div>
       <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
-        <h2 className="font-bold text-lg">Summery</h2>
-        <p>Add Summery for your job title</p>
+        <h2 className="font-bold text-lg">Summary</h2>
+        <p>Add Summary for your job title</p>
 
         <form className="mt-7" onSubmit={onSave}>
           <div className="flex justify-between items-end">
-            <label>Add Summery</label>
+            <label>Add Summary</label>
             <Button
               variant="outline"
               onClick={() => GenerateSummeryFromAI()}
@@ -87,9 +96,22 @@ function Summery({ enabledNext }: Props) {
           <Textarea
             className="mt-5 text-black"
             required
-            value={summery}
-            defaultValue={summery ? summery : resumeObj.summary}
-            onChange={(e: any) => setSummery(e.target.value)}
+            value={summery ? summery : resumeObj.summary}
+            onChange={(e: any) => {
+              if (e.target.value.length <= 200) {
+                setSummery(e.target.value);
+                setResumeObj({
+                  ...resumeObj,
+                  summary: e.target.value,
+                });
+              } else {
+                toast({
+                  title: "Length Exceeding",
+                  description: "Summery should be less than 200 characters",
+                  variant: "destructive",
+                });
+              }
+            }}
           />
           <div className="mt-2 flex justify-end">
             <Button type="submit" disabled={loading}>

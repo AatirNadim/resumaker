@@ -7,9 +7,9 @@ import { LoaderCircle } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import GlobalApi from "@lib/apiCalls";
 // import { useRouter } from "next/router";
-import { toast } from "sonner";
 import { EducationNode, ResumeComponentType, ResumeNode } from "@/app/types";
 import { useResumeStore } from "@/app/context/ResumeContext";
+import { toast } from "@/app/_components/ui/use-toast";
 
 function Education() {
   const [loading, setLoading] = useState(false);
@@ -50,11 +50,14 @@ function Education() {
       (resp) => {
         console.log(resp);
         setLoading(false);
-        toast("Details updated !");
+        toast({ description: "Details updated !" });
       },
       (error) => {
         setLoading(false);
-        toast("Server Error, Please try again!");
+        toast({
+          variant: "destructive",
+          description: "Server Error, Please try again!",
+        });
       }
     );
   };

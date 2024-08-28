@@ -6,19 +6,14 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { Button } from "@/app/_components/ui/button";
 import { LoaderCircle } from "lucide-react";
-// import { resumeObjContext } from "@/context/resumeObjContext";
 import GlobalApi from "@lib/apiCalls";
-// import { useParams } from "react-router-dom";
-import { toast } from "sonner";
 
 import { ResumeComponentType, SkillNode } from "@/app/types";
 import { useResumeStore } from "@/app/context/ResumeContext";
+import { toast } from "@/app/_components/ui/use-toast";
 
 function Skills() {
   const [skillsList, setSkillsList] = useState<SkillNode[]>([]);
-  // const router = useRouter();
-  // const { resumeId } = router.query as { resumeId: string };
-
   const [loading, setLoading] = useState(false);
   const { resumeId, resumeObj, setResumeObj } = useResumeStore();
 
@@ -51,11 +46,14 @@ function Skills() {
       (resp) => {
         console.log(resp);
         setLoading(false);
-        toast("Details updated !");
+        toast({ description: "Details updated !" });
       },
       (error) => {
         setLoading(false);
-        toast("Server Error, Try again!");
+        toast({
+          description: "Server Error, Try again!",
+          variant: "destructive",
+        });
       }
     );
   };

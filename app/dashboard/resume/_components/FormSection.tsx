@@ -12,7 +12,6 @@ import ThemeConfig from "./ThemeConfig";
 function FormSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [enableNext, setEnableNext] = useState(true);
-  // const { resumeId } = useRouter().query;
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -56,9 +55,7 @@ function FormSection() {
         <Education />
       ) : activeFormIndex == 5 ? (
         <Skills />
-      ) : // activeFormIndex == 6 ? (
-      //   <Navigate to={"/my-resume/" + resumeObj.resumeId + "/view"} />
-      // ) :
+      ) : 
       null}
     </div>
   );

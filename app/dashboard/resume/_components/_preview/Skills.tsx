@@ -1,3 +1,5 @@
+"use client";
+
 import { useResumeStore } from "@/app/context/ResumeContext";
 
 function SkillsPreview() {

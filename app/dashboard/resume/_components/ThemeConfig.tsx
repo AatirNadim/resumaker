@@ -7,10 +7,6 @@ import {
 } from "@components/ui/popover";
 import { Button } from "@/app/_components/ui/button";
 import { LayoutGrid } from "lucide-react";
-// import { ResumeInfoContext } from "@/context/ResumeInfoContext";
-import GlobalApi from "@lib/apiCalls";
-// import { useParams } from "react-router-dom";
-import { toast } from "sonner";
 import { useResumeStore } from "@/app/context/ResumeContext";
 import { colors } from "@/app/lib/constants";
 

@@ -2,7 +2,6 @@ import { Loader2Icon, MoreVertical, Notebook } from "lucide-react";
 import React, { useEffect, useState } from "react";
 // import { Link, useNavigate } from 'react-router-dom'
 import GlobalApi from "@/app/lib/apiCalls";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ResumeNode } from "@/app/types";
@@ -22,6 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/app/_components/ui/dropdown-menu";
+import { toast } from "@/app/_components/ui/use-toast";
 interface ResumeCardItemProps {
   resume: ResumeNode;
   refreshData: any;
@@ -39,7 +39,10 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
     GlobalApi.DeleteResumeById(resume.resumeId).then(
       (resp) => {
         console.log(resp);
-        toast("Resume Deleted!");
+        toast({
+          variant: "default",
+          title: "Resume Deleted!",
+        });
         refreshData();
         setLoading(false);
         setOpenAlert(false);
@@ -50,13 +53,10 @@ function ResumeCardItem({ resume, refreshData }: ResumeCardItemProps) {
     );
   };
   return (
-    <div className="">
+    <div className="hover:shadow-lg transition">
       <Link href={`/dashboard/resume/${resume.resumeId}`}>
         <div
-          className="p-14  bg-gradient-to-b
-          from-pink-100 via-purple-200 to-blue-200
-        h-[280px] 
-          rounded-t-lg border-t-4"
+          className="p-14 bg-muted h-[280px] rounded-t-lg border-t-4cursor-pointer"
           style={{
             borderColor: resume?.themeColor,
           }}

@@ -7,6 +7,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import Header from "./_components/Header";
+import Image from "next/image";
 
 export default function Component() {
   return (
@@ -35,12 +36,15 @@ export default function Component() {
                   </Link>
                 </div>
               </div>
-              <img
+              <Image
                 src="/placeholder.svg"
-                width="550"
-                height="550"
-                alt="Hero"
+                width={550}
+                height={550}
+                alt="resume_specimen"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
+                placeholder="blur"
+                // give base64 encoded image to blurDataURL
+                blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3C/svg%3E"
               />
             </div>
           </div>

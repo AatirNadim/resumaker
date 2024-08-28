@@ -2,14 +2,12 @@
 
 import { Button } from "@/app/_components/ui/button";
 import { Input } from "@/app/_components/ui/input";
-// import { resumeObjContext } from '@/context/resumeObjContext'
 import { LoaderCircle } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import GlobalApi from "@lib/apiCalls";
-import { toast } from "sonner";
-// import { useRouter } from "next/router";
 import { PersonNode, ResumeComponentType } from "@/app/types";
 import { useResumeStore } from "@/app/context/ResumeContext";
+import { toast } from "@/app/_components/ui/use-toast";
 
 interface Props {
   enabledNext: (value: boolean) => void;
@@ -54,7 +52,7 @@ function PersonalDetail({ enabledNext }: Props) {
         console.log(resp);
         enabledNext(true);
         setLoading(false);
-        toast("Details updated");
+        toast({ description: "Details updated" });
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));

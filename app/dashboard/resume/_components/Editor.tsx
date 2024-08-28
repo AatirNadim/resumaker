@@ -21,8 +21,8 @@ import {
   Toolbar,
 } from "react-simple-wysiwyg";
 import { AIChatSession } from "@/app/lib/genAiConfig";
-import { toast } from "sonner";
 import { useResumeStore } from "@/app/context/ResumeContext";
+import { toast } from "@/app/_components/ui/use-toast";
 const PROMPT =
   "position titile: {positionTitle} , Depends on position title give me 5-7 bullet points for my experience in resume (Please do not add experince level and No JSON array) , give me result in HTML tags";
 
@@ -43,7 +43,9 @@ function RichTextEditor({
 
   const GenerateSummeryFromAI = async () => {
     if (!resumeObj.experience[index].title) {
-      toast("Please Add Position Title");
+      toast({
+        description: "Please Add Position Title",
+      });
       return;
     }
     setLoading(true);

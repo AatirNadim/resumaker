@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import GlobalApi from "@lib/apiCalls";
 import { RWebShare } from "react-web-share";
 import { useRouter } from "next/router";
+import { ResumeNode } from "@/app/types";
 // import ResumeContextProvider from "@/app/context/ResumeContext";
 
 interface IResumeInfo {
@@ -14,7 +15,7 @@ interface IResumeInfo {
 }
 
 function ViewResume({ resumeId }: IResumeInfo) {
-  const [resumeInfo, setResumeInfo] = useState();
+  const [resumeInfo, setResumeInfo] = useState<ResumeNode>();
   // const { resumeId } = useRouter().query;
 
   useEffect(() => {
@@ -58,9 +59,9 @@ function ViewResume({ resumeId }: IResumeInfo) {
                   resumeId +
                   "/view",
                 title:
-                  resumeInfo?.firstName +
+                  resumeInfo?.personDetails.firstName +
                   " " +
-                  resumeInfo?.lastName +
+                  resumeInfo?.personDetails.lastName +
                   " resume",
               }}
               onClick={() => console.log("shared successfully!")}
